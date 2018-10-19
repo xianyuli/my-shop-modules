@@ -8,7 +8,11 @@
 *.ctxt
 
 # intellij file
-
+.idea
+*.iml
+out
+gen
+target
 
 # Package Files #
 *.jar
