@@ -16,8 +16,8 @@ import org.springframework.stereotype.Repository;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-@Repository(value = "userDao")
-public class UserDaoimpl implements UserDao {
+@Repository
+public class UserDaoImpl implements UserDao {
     /**
      * 功能描述: <br>
      * 〈〉
