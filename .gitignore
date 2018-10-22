@@ -13,6 +13,7 @@
 out
 gen
 target
+**/test
 
 # Package Files #
 *.jar
