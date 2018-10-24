@@ -25,7 +25,17 @@ public interface TbUserService {
      * 查询全部用户信息
      * @return
      */
-    public List<TbUser> selectAll();
+    List<TbUser> selectAll();
+
+    void insert(TbUser tbUser);
+
+    void delete(long id);
+
+    TbUser getById(long id);
+
+    void update(TbUser tbUser);
+
+    List<TbUser> selectByUsername(String username);
 
 
 }

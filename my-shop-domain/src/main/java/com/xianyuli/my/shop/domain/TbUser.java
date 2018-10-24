@@ -30,5 +30,5 @@ public class TbUser implements Serializable{
     private String phone;
     private String email;
     private Date created;
-    private Date update;
+    private Date updated;
 }
