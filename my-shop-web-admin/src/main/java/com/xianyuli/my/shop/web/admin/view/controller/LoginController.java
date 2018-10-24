@@ -1,10 +1,11 @@
 package com.xianyuli.my.shop.web.admin.view.controller;
 
 import com.xianyuli.my.shop.commoms.utils.ConstantUtils;
-import com.xianyuli.my.shop.domain.User;
-import com.xianyuli.my.shop.web.admin.service.UserService;
+import com.xianyuli.my.shop.domain.TbUser;
+import com.xianyuli.my.shop.web.admin.service.TbUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginController {
 
     @Autowired
-    private UserService userService;
+    private TbUserService tbUserService;
 
     @RequestMapping(value = {"", "login"}, method = RequestMethod.GET)
     public String login() {
@@ -35,14 +36,14 @@ public class LoginController {
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public String login(@RequestParam String email, @RequestParam String password, HttpServletRequest request) {
+    public String login(@RequestParam String email, @RequestParam String password, HttpServletRequest request, Model model) {
 
-        User user = userService.login(email, password);
-        if (user != null) {
-            request.getSession().setAttribute(ConstantUtils.SESSION_USER,user);
-            return "redirect:main";
+        TbUser tbUser = tbUserService.login(email,password);
+        if (tbUser != null) {
+            request.getSession().setAttribute(ConstantUtils.SESSION_USER,tbUser);
+            return "redirect:/main";
         }else{
-
+            model.addAttribute("message","用户名或者密码错误，请重新输入！");
             return "login";
         }
 

@@ -2,7 +2,7 @@ package com.xianyuli.my.shop.web.admin.view.interceptor;
 
 
 import com.xianyuli.my.shop.commoms.utils.ConstantUtils;
-import com.xianyuli.my.shop.domain.User;
+import com.xianyuli.my.shop.domain.TbUser;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,8 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        User user = (User) httpServletRequest.getSession().getAttribute(ConstantUtils.SESSION_USER);
-        if (user == null) {
+        TbUser tbUser = (TbUser) httpServletRequest.getSession().getAttribute(ConstantUtils.SESSION_USER);
+        if (tbUser == null) {
             httpServletResponse.sendRedirect("/login");
             return false;
         } else {

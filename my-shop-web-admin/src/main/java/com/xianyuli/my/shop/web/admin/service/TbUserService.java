@@ -37,5 +37,9 @@ public interface TbUserService {
 
     List<TbUser> selectByUsername(String username);
 
+    TbUser getByEmail(String email);
+
+    TbUser login(String email,String password);
+
 
 }

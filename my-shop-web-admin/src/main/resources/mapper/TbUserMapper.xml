@@ -31,7 +31,7 @@
     </delete>
 
     <select id="getById" resultType="com.xianyuli.my.shop.domain.TbUser">
-        SELECT * FROM tb_user WHERE id=#{id}
+        SELECT  <include refid="TbUserColumns"/> FROM tb_user WHERE id=#{id}
     </select>
 
     <update id="update" parameterType="com.xianyuli.my.shop.domain.TbUser">
@@ -47,6 +47,10 @@
     </update>
 
     <select id="selectByUsername" resultType="com.xianyuli.my.shop.domain.TbUser">
-        SELECT * FROM `tb_user` where username LIKE CONCAT('%',#{username},'%')
+        SELECT  <include refid="TbUserColumns"/> FROM `tb_user` where username LIKE CONCAT('%',#{username},'%')
+    </select>
+
+    <select id="getByEmail" resultType="com.xianyuli.my.shop.domain.TbUser">
+         SELECT  <include refid="TbUserColumns"/> FROM `tb_user` where email=#{email}
     </select>
 </mapper>
