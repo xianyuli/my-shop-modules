@@ -10,14 +10,14 @@
         created,
         updated
     </sql>
-    
+
     <select id="selectAll" resultType="com.xianyuli.my.shop.domain.TbUser">
         SELECT
-          <include refid="TbUserColumns"/>
+        <include refid="TbUserColumns"/>
         FROM
         tb_user
     </select>
-    
+
     <insert id="insert" parameterType="com.xianyuli.my.shop.domain.TbUser">
         INSERT INTO `tb_user` (
         `username`, `password`, `phone`, `email`, `created`, `updated`
@@ -31,7 +31,9 @@
     </delete>
 
     <select id="getById" resultType="com.xianyuli.my.shop.domain.TbUser">
-        SELECT  <include refid="TbUserColumns"/> FROM tb_user WHERE id=#{id}
+        SELECT
+        <include refid="TbUserColumns"/>
+        FROM tb_user WHERE id=#{id}
     </select>
 
     <update id="update" parameterType="com.xianyuli.my.shop.domain.TbUser">
@@ -46,11 +48,75 @@
 	         `id` = #{id};
     </update>
 
-    <select id="selectByUsername" resultType="com.xianyuli.my.shop.domain.TbUser">
-        SELECT  <include refid="TbUserColumns"/> FROM `tb_user` where username LIKE CONCAT('%',#{username},'%')
+    <select id="getByUsername" resultType="com.xianyuli.my.shop.domain.TbUser">
+        SELECT
+        <include refid="TbUserColumns"/>
+        FROM `tb_user` where username LIKE CONCAT('%',#{username},'%')
     </select>
 
     <select id="getByEmail" resultType="com.xianyuli.my.shop.domain.TbUser">
-         SELECT  <include refid="TbUserColumns"/> FROM `tb_user` where email=#{email}
+        SELECT
+        <include refid="TbUserColumns"/>
+        FROM `tb_user` where email=#{email}
     </select>
+
+    <select id="search" resultType="com.xianyuli.my.shop.domain.TbUser">
+        SELECT
+        <include refid="TbUserColumns"/>
+        FROM `tb_user` t
+        <where>
+            <if test="username!='' and username!=null">
+                AND t.username LIKE CONCAT('%',#{username},'%')
+            </if>
+            <if test="email!='' and email!=null">
+                AND t.email LIKE CONCAT('%',#{email},'%')
+            </if>
+            <if test="phone!='' and phone!=null">
+                AND t.phone LIKE CONCAT('%',#{phone},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="page" resultType="com.xianyuli.my.shop.domain.TbUser">
+        SELECT
+        <include refid="TbUserColumns"/>
+        FROM `tb_user` t
+        <where>
+            <if test="user.username!='' and user.username!=null">
+                AND t.username LIKE CONCAT('%',#{user.username},'%')
+            </if>
+            <if test="user.email!='' and user.email!=null">
+                AND t.email LIKE CONCAT('%',#{user.email},'%')
+            </if>
+            <if test="user.phone!='' and user.phone!=null">
+                AND t.phone LIKE CONCAT('%',#{user.phone},'%')
+            </if>
+        </where>
+        limit #{start},#{length}
+    </select>
+
+    <select id="count" resultType="integer">
+        SELECT
+            count(*)
+        FROM `tb_user` t
+        <where>
+            <if test="user.username!='' and user.username!=null">
+                AND t.username LIKE CONCAT('%',#{user.username},'%')
+            </if>
+            <if test="user.email!='' and user.email!=null">
+                AND t.email LIKE CONCAT('%',#{user.email},'%')
+            </if>
+            <if test="user.phone!='' and user.phone!=null">
+                AND t.phone LIKE CONCAT('%',#{user.phone},'%')
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteMutil" >
+        delete from `tb_user`  where id in
+        <foreach collection="array" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+
+    </delete>
 </mapper>

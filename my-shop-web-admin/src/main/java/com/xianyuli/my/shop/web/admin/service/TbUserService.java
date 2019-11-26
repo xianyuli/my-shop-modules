@@ -1,9 +1,8 @@
 package com.xianyuli.my.shop.web.admin.service;
 
+import com.xianyuli.my.shop.commoms.dto.BaseResult;
+import com.xianyuli.my.shop.commoms.dto.PageInfo;
 import com.xianyuli.my.shop.domain.TbUser;
-import com.xianyuli.my.shop.web.admin.dao.TbUserDao;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -23,11 +22,16 @@ public interface TbUserService {
 
     /**
      * 查询全部用户信息
+     *
      * @return
      */
     List<TbUser> selectAll();
 
-    void insert(TbUser tbUser);
+    PageInfo<TbUser> page(int start, int length, int draw, TbUser tbUser);
+
+    int count(TbUser tbUser);
+
+    BaseResult save(TbUser tbUser);
 
     void delete(long id);
 
@@ -35,11 +39,14 @@ public interface TbUserService {
 
     void update(TbUser tbUser);
 
-    List<TbUser> selectByUsername(String username);
+    List<TbUser> getByUsername(String username);
 
     TbUser getByEmail(String email);
 
-    TbUser login(String email,String password);
+    TbUser login(String email, String password);
 
+    List<TbUser> search(TbUser tbUser);
+
+    int deleteMutil(String[] ids);
 
 }

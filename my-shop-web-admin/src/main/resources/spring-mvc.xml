@@ -30,12 +30,7 @@
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <mvc:exclude-mapping path="/static/**"/>
-            <mvc:exclude-mapping path="/login"/>
             <bean class="com.xianyuli.my.shop.web.admin.view.interceptor.LoginInterceptor"/>
-        </mvc:interceptor>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <bean class="com.xianyuli.my.shop.web.admin.view.interceptor.PermissionInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 </beans>

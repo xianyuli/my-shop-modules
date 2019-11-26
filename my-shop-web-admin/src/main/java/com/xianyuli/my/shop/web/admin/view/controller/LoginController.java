@@ -37,13 +37,12 @@ public class LoginController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public String login(@RequestParam String email, @RequestParam String password, HttpServletRequest request, Model model) {
-
-        TbUser tbUser = tbUserService.login(email,password);
+        TbUser tbUser = tbUserService.login(email, password);
         if (tbUser != null) {
-            request.getSession().setAttribute(ConstantUtils.SESSION_USER,tbUser);
+            request.getSession().setAttribute(ConstantUtils.SESSION_USER, tbUser);
             return "redirect:/main";
-        }else{
-            model.addAttribute("message","用户名或者密码错误，请重新输入！");
+        } else {
+            model.addAttribute("message", "用户名或者密码错误，请重新输入！");
             return "login";
         }
 

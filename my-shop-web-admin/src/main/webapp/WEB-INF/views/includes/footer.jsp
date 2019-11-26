@@ -34,9 +34,21 @@
 <script src="/static/asserts/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
 <script src="/static/asserts/bower_components/fastclick/lib/fastclick.js"></script>
+<!--jquery-validation-->
+<script src="/static/asserts/plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="/static/asserts/plugins/jquery-validation/additional-methods.min.js"></script>
+<script src="/static/asserts/plugins/jquery-validation/localization/messages_zh.min.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="/static/asserts/plugins/iCheck/icheck.min.js"></script>
+<!-- DataTables -->
+<script src="/static/asserts/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/static/asserts/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+<!--app-->
+<script src="/static/asserts/app/validation.js"></script>
+<script src="/static/asserts/app/app.js"></script>
