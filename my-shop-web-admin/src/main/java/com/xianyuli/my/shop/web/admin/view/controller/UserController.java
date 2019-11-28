@@ -92,21 +92,6 @@ public class UserController {
     }
 
     /**
-     * 功能描述: 搜索用户<br>
-     * 〈〉
-     *
-     * @return:
-     * @Author:LW
-     * @Date: 2019/6/3 0003 22:37
-     */
-    @RequestMapping(value = "search", method = RequestMethod.POST)
-    public String search(TbUser tbUser, Model model) {
-        List<TbUser> tbUsers = tbUserService.search(tbUser);
-        model.addAttribute("tbUsers", tbUsers);
-        return "user_list";
-    }
-
-    /**
      * 功能描述: 删除用户<br>
      * 〈〉
      *

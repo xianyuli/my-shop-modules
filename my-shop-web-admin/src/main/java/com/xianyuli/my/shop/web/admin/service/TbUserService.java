@@ -20,13 +20,6 @@ import java.util.List;
  */
 public interface TbUserService {
 
-    /**
-     * 查询全部用户信息
-     *
-     * @return
-     */
-    List<TbUser> selectAll();
-
     PageInfo<TbUser> page(int start, int length, int draw, TbUser tbUser);
 
     int count(TbUser tbUser);
@@ -41,11 +34,7 @@ public interface TbUserService {
 
     List<TbUser> getByUsername(String username);
 
-    TbUser getByEmail(String email);
-
     TbUser login(String email, String password);
-
-    List<TbUser> search(TbUser tbUser);
 
     int deleteMutil(String[] ids);
 

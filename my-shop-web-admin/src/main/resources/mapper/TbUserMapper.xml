@@ -11,13 +11,6 @@
         updated
     </sql>
 
-    <select id="selectAll" resultType="com.xianyuli.my.shop.domain.TbUser">
-        SELECT
-        <include refid="TbUserColumns"/>
-        FROM
-        tb_user
-    </select>
-
     <insert id="insert" parameterType="com.xianyuli.my.shop.domain.TbUser">
         INSERT INTO `tb_user` (
         `username`, `password`, `phone`, `email`, `created`, `updated`
@@ -58,23 +51,6 @@
         SELECT
         <include refid="TbUserColumns"/>
         FROM `tb_user` where email=#{email}
-    </select>
-
-    <select id="search" resultType="com.xianyuli.my.shop.domain.TbUser">
-        SELECT
-        <include refid="TbUserColumns"/>
-        FROM `tb_user` t
-        <where>
-            <if test="username!='' and username!=null">
-                AND t.username LIKE CONCAT('%',#{username},'%')
-            </if>
-            <if test="email!='' and email!=null">
-                AND t.email LIKE CONCAT('%',#{email},'%')
-            </if>
-            <if test="phone!='' and phone!=null">
-                AND t.phone LIKE CONCAT('%',#{phone},'%')
-            </if>
-        </where>
     </select>
 
     <select id="page" resultType="com.xianyuli.my.shop.domain.TbUser">

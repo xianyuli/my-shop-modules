@@ -21,12 +21,6 @@ import java.util.List;
 
 @Repository
 public interface TbUserDao {
-    /**
-     * 查询全部用户信息
-     *
-     * @return
-     */
-    List<TbUser> selectAll();
 
     /**
      * 新增
@@ -72,14 +66,6 @@ public interface TbUserDao {
      * @return
      */
     TbUser getByEmail(String email);
-
-    /**
-     * 搜索
-     *
-     * @param tbUser
-     * @return
-     */
-    List<TbUser> search(TbUser tbUser);
 
     /**
      * 批量删除
