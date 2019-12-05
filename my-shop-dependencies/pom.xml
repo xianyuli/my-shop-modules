@@ -34,6 +34,7 @@
         <junit.version>4.12</junit.version>
         <lombok.version>1.18.2</lombok.version>
         <jackson.version>2.9.5</jackson.version>
+        <hibernate-validator.version>5.3.4.Final</hibernate-validator.version>
     </properties>
 
     <dependencyManagement>
@@ -103,6 +104,11 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jdbc</artifactId>
                 <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate-validator.version}</version>
             </dependency>
             <!--database end-->
 

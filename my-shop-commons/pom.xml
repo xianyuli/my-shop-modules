@@ -57,6 +57,12 @@
             <artifactId>jackson-annotations</artifactId>
         </dependency>
         <!--json end-->
+
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
     </dependencies>
 
 
