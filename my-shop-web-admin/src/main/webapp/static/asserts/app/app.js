@@ -13,6 +13,9 @@ var App = function () {
         checkboxs = $('input[type="checkbox"].minimal');
 
     };
+    /**
+     * 全选 反选事件
+     */
     var handlerAllCheck = function () {
         checkmaster.on("ifChanged", function (e) {
             console.log(e.target.checked);
@@ -24,7 +27,48 @@ var App = function () {
 
         });
     };
-
+    /**
+     * 初始化zTree
+     * @param url
+     * @param autoParam
+     * @param callback
+     */
+    var handlerInitZtree = function (url, autoParam, callback) {
+        var _setting = {
+            view: {
+                selectedMulti: false
+            },
+            async: {
+                enable: true,
+                type: "get",
+                url: url,
+                autoParam: autoParam,
+            }
+        };
+        function selectNode() {
+            var zTree = $.fn.zTree.getZTreeObj("treeData");
+            var selectedNodes = zTree.getSelectedNodes();
+            if (!selectedNodes || selectedNodes.length === 0) {
+                alert("请选择一个节点");
+                return false;
+            } else {
+                return callback(selectedNodes);
+            }
+        }
+        $.fn.zTree.init($("#treeData"), _setting);
+        $(".modal-footer .btn-primary").click(
+            function () {
+                return selectNode();
+            }
+        );
+    };
+    /**
+     * 初始化table控件
+     * @param url
+     * @param tableName
+     * @param columns
+     * @returns {jQuery}
+     */
     var handlerInitDataTables = function (url, tableName, columns) {
         var dataTable = $(tableName).DataTable({
             "serverSide": true,
@@ -82,6 +126,9 @@ var App = function () {
         },
         initDataTables: function (url, tableName, columns) {
             return handlerInitDataTables(url, tableName, columns);
+        },
+        initZtree: function (url, autoParam, callback) {
+            return handlerInitZtree(url, autoParam, callback);
         }
     }
 }();

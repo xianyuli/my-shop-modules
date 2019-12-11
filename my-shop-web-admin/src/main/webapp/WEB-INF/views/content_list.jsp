@@ -7,7 +7,7 @@
 <html>
 <head>
     <jsp:include page="includes/header.jsp"/>
-    <title>我的商城 | 用户管理</title>
+    <title>我的商城 | 内容管理</title>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -28,7 +28,7 @@
             </h1>
             <ol class="breadcrumb">
                 <li><a href="/main"><i class="fa fa-dashboard"></i>首页</a></li>
-                <li class="active">用户列表</li>
+                <li class="active">内容列表</li>
             </ol>
         </section>
 
@@ -51,25 +51,25 @@
                             <div class="row form-horizontal">
                                 <div class="col-xs-12 col-sm-3">
                                     <div class="form-group">
-                                        <label for="email" class="col-sm-4 control-label">邮箱</label>
+                                        <label for="title" class="col-sm-4 control-label">标题</label>
                                         <div class="col-sm-8">
-                                            <input id="email" class="form-control" placeholder="邮箱"/>
+                                            <input id="title" class="form-control" placeholder="标题"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-3">
                                     <div class="form-group ">
-                                        <label for="username" class="col-sm-4 control-label">姓名</label>
+                                        <label for="subTitle" class="col-sm-4 control-label">子标题</label>
                                         <div class="col-sm-8">
-                                            <input id="username" class="form-control" placeholder="姓名"/>
+                                            <input id="subTitle" class="form-control" placeholder="子标题"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-3">
                                     <div class="form-group">
-                                        <label for="phone" class="col-sm-4 control-label">手机</label>
+                                        <label for="titleDesc" class="col-sm-4 control-label">标题描述</label>
                                         <div class="col-sm-8">
-                                            <input id="phone" class="form-control" placeholder="手机号"/>
+                                            <input id="titleDesc" class="form-control" placeholder="标题描述"/>
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                             <h3 class="box-title">用户列表</h3>
                             <div class="row box-body">
                                 <div class="col">
-                                    <a href="/user/form" type="button" class="btn btn-sm btn-default"
+                                    <a href="/content/form" type="button" class="btn btn-sm btn-default"
                                        style="margin-left: 10px"><i class="fa fa-plus"></i>新增</a>
                                     <a type="button" class="btn btn-sm btn-default" onclick="deleteMulti()"
                                        style="margin-left: 10px"><i class="fa fa-trash-o"></i>删除</a>
@@ -109,9 +109,12 @@
                                 <tr>
                                     <th><input type="checkbox" class="minimal checkmaster" value=""/></th>
                                     <th>ID</th>
-                                    <th>用户名</th>
-                                    <th>手机号</th>
-                                    <th>邮箱</th>
+                                    <th>标题</th>
+                                    <th>子标题</th>
+                                    <th>标题描述</th>
+                                    <th>链接</th>
+                                    <th>图片1</th>
+                                    <th>图片2</th>
                                     <th>更新时间</th>
                                     <th>操作</th>
                                 </tr>
@@ -143,6 +146,7 @@
     //多选的数据ID数组
     var idArray;
     var dataTable;
+
     function getCheckedBox() {
         idArray = [];
         var checkboxs = App.getCheckChilds();
@@ -178,7 +182,7 @@
         if (ids) {
             $.ajax({
                 type: 'POST',
-                url: "/user/delete",
+                url: "/content/delete",
                 data: {"ids": ids},
                 aysnc: false,
                 success: function (data) {
@@ -196,7 +200,7 @@
 
     function showDetail(id) {
         $.ajax({
-            url: "/user/detail?id=" + id,
+            url: "/content/detail?id=" + id,
             type: "get",
             contentType: "html",
             success: function (data) {
@@ -208,13 +212,13 @@
     }
 
     function search() {
-        var email = $("#email").val();
-        var username = $("#username").val();
-        var phone = $("#phone").val();
+        var title = $("#title").val();
+        var subTitle = $("#subTitle").val();
+        var titleDesc = $("#titleDesc").val();
         var param = {
-            "email": email,
-            "username": username,
-            "phone": phone
+            "title": title,
+            "subTitle": subTitle,
+            "titleDesc": titleDesc
         };
         dataTable.settings()[0].ajax.data = param;
         dataTable.ajax.reload();
@@ -228,19 +232,35 @@
                 }
             },
             {"data": "id"},
-            {"data": "username"},
-            {"data": "phone"},
-            {"data": "email"},
+            {"data": "title"},
+            {"data": "subTitle"},
+            {"data": "titleDesc"},
+            {
+                "data": function (row, type, val, meta) {
+                    return "<a href='" + row.url + "' target='_blank'>查看</a>"
+                }
+            },
+            {
+                "data": function (row, type, val, meta) {
+                    console.log(row.pic ? row.pic : '');
+                    return "<a href='" + row.pic?row.pic:'' + "' target='_blank'>查看</a>"
+                }
+            },
+            {
+                "data": function (row, type, val, meta) {
+                    return "<a href='" + row.pic2?row.pic2:'' + "' target='_blank'>查看</a>"
+                }
+            },
             {"data": "updated"},
             {
                 "data": function (row, type, val, meta) {
                     return '<a onclick="showDetail(' + row.id + ')" style="margin-right: 10px;" class="btn  btn-default btn-sm"><i class="fa fa-search"></i> 查看</a>' +
-                        '<a href="/user/form?id=' + row.id + '" style="margin-right: 10px;" class="btn  btn-primary btn-sm"><i class="fa fa-edit"></i>编辑</a>' +
+                        '<a href="/content/form?id=' + row.id + '" style="margin-right: 10px;" class="btn  btn-primary btn-sm"><i class="fa fa-edit"></i>编辑</a>' +
                         '<a onclick="delOne(' + row.id + ')" style="margin-right: 10px;" class="btn  btn-danger btn-sm"><i class="fa fa-trash"></i>删除</a>';
                 }
             }
         ];
-        var url = "/user/page";
+        var url = "/content/page";
         return App.initDataTables(url, '#dataTable', columns);
     }
 
