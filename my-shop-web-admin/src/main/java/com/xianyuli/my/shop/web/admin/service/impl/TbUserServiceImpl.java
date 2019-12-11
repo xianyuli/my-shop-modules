@@ -2,6 +2,7 @@ package com.xianyuli.my.shop.web.admin.service.impl;
 
 import com.xianyuli.my.shop.commoms.dto.BaseResult;
 import com.xianyuli.my.shop.commoms.dto.PageInfo;
+import com.xianyuli.my.shop.commoms.utils.ConstantUtils;
 import com.xianyuli.my.shop.commoms.utils.RegexpUtils;
 import com.xianyuli.my.shop.domain.TbUser;
 import com.xianyuli.my.shop.web.admin.dao.TbUserDao;
@@ -53,9 +54,10 @@ public class TbUserServiceImpl implements TbUserService {
     @Override
     public BaseResult save(TbUser tbUser) {
         BaseResult baseResult = checkTbUser(tbUser);
-        if (baseResult.getStatus() == 200) {
+        if (baseResult.getStatus() == ConstantUtils.STATUS_SUCCESS) {
             tbUser.setUpdated(new Date());
-            if (tbUser.getId() == null) {//新增用户
+            //新增用户
+            if (tbUser.getId() == null) {
                 //密码加密
                 tbUser.setPassword(DigestUtils.md5DigestAsHex(tbUser.getPassword().getBytes()));
                 tbUser.setCreated(new Date());

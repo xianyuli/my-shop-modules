@@ -8,4 +8,6 @@ public interface TbContentCategoryService {
 
     List<TbContentCategory> selectAll();
 
+    List<TbContentCategory> selectByPid(Long pid);
+
 }

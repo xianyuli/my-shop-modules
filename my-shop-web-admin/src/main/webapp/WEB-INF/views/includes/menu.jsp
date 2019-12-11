@@ -33,8 +33,8 @@
                  </span>
             </a>
             <ul class="treeview-menu">
-                <li ><a href="/content/category/list"><i class="fa fa-book"></i>内容分类</a></li>
-                <li ><a href="/content/form"><i class="fa fa-circle-o"></i>内容列表</a></li>
+                <li ><a href="/category/list"><i class="fa fa-book"></i>内容分类</a></li>
+                <li ><a href="/content/list"><i class="fa fa-circle-o"></i>内容列表</a></li>
             </ul>
         </li>
     </ul>

@@ -9,4 +9,6 @@ import java.util.List;
 public interface TbContentCategoryDao {
 
     List<TbContentCategory> selectAll();
+
+    List<TbContentCategory> selectByPid(Long pid);
 }
