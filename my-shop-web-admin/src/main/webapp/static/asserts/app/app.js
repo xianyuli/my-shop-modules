@@ -45,6 +45,7 @@ var App = function () {
                 autoParam: autoParam,
             }
         };
+
         function selectNode() {
             var zTree = $.fn.zTree.getZTreeObj("treeData");
             var selectedNodes = zTree.getSelectedNodes();
@@ -55,6 +56,7 @@ var App = function () {
                 return callback(selectedNodes);
             }
         }
+
         $.fn.zTree.init($("#treeData"), _setting);
         $(".modal-footer .btn-primary").click(
             function () {
@@ -115,6 +117,29 @@ var App = function () {
         });
         return dataTable;
     };
+    // 默认的 Dropzone 参数
+    var defaultDropzoneOpts = {
+        url: "",
+        paramName: "dropFile",
+        maxFiles: 1, // 一次性上传的文件数量上限
+        maxFilesize: 2, // 文件大小，单位：MB
+        acceptedFiles: ".jpg,.gif,.png,.jpeg", // 上传的类型
+        addRemoveLinks: true,
+        parallelUploads: 1, // 一次上传的文件数量
+        dictDefaultMessage: '拖动文件至此或者点击上传',
+        dictMaxFilesExceeded: "您最多只能上传 1 个文件！",
+        dictResponseError: '文件上传失败!',
+        dictInvalidFileType: "文件类型只能是*.jpg,*.gif,*.png,*.jpeg",
+        dictFallbackMessage: "浏览器不受支持",
+        dictFileTooBig: "文件过大上传文件最大支持",
+        dictRemoveLinks: "删除",
+        dictCancelUpload: "取消",
+        dictRemoveFile: "删除文件"
+    };
+    var handlerInitDropzone = function (opts) {
+        $.extend(defaultDropzoneOpts, opts);
+        return  $(defaultDropzoneOpts.id).dropzone(defaultDropzoneOpts);
+    };
 
     return {
         initiCheck: function () {
@@ -129,6 +154,9 @@ var App = function () {
         },
         initZtree: function (url, autoParam, callback) {
             return handlerInitZtree(url, autoParam, callback);
+        },
+        initDropzone: function (opts) {
+            return handlerInitDropzone(opts);
         }
     }
 }();

@@ -1,5 +1,6 @@
 package com.xianyuli.my.shop.web.admin.dao;
 
+import com.xianyuli.my.shop.commoms.persistence.BaseDao;
 import com.xianyuli.my.shop.domain.TbUser;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -20,36 +21,7 @@ import java.util.List;
  */
 
 @Repository
-public interface TbUserDao {
-
-    /**
-     * 新增
-     *
-     * @param tbUser
-     */
-    void insert(TbUser tbUser);
-
-    /**
-     * 删除
-     *
-     * @param id
-     */
-    void delete(long id);
-
-    /**
-     * 根据ID获取用户
-     *
-     * @param id
-     * @return
-     */
-    TbUser getById(long id);
-
-    /**
-     * 更新
-     *
-     * @param tbUser
-     */
-    void update(TbUser tbUser);
+public interface TbUserDao extends BaseDao<TbUser> {
 
     /**
      * 根据姓名查询
@@ -66,29 +38,5 @@ public interface TbUserDao {
      * @return
      */
     TbUser getByEmail(String email);
-
-    /**
-     * 批量删除
-     *
-     * @param ids
-     * @return
-     */
-    int deleteMutil(String[] ids);
-
-    /**
-     * 分页查询
-     *
-     * @param start
-     * @param length
-     * @return
-     */
-    List<TbUser> page(@Param("start") int start, @Param("length") int length, @Param("user") TbUser tbUser);
-
-    /**
-     * 分页查询的统计
-     *
-     * @return
-     */
-    Integer count( @Param("user") TbUser tbUser);
 
 }

@@ -4,6 +4,9 @@ import com.xianyuli.my.shop.commoms.persistence.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotNull;
 
 /**     
   * 
@@ -20,21 +23,25 @@ public class TbContent extends BaseEntity {
     /**
     * 内容类目ID
     */
+    @NotNull(message = "父级类目不能为空")
     private Long categoryId;
 
     /**
     * 内容标题
     */
+    @Length(min = 2,max = 20,message = "标题长度必须是2到20位")
     private String title;
 
     /**
     * 子标题
     */
+    @Length(min = 2,max = 20,message = "子标题长度必须是2到20位")
     private String subTitle;
 
     /**
     * 标题描述
     */
+    @Length(min = 2,max = 50,message = "标题描述必须是2到50位")
     private String titleDesc;
 
     /**
@@ -55,5 +62,8 @@ public class TbContent extends BaseEntity {
     /**
     * 内容
     */
+    @Length(min = 1,message = "内容不为空")
     private String content;
+
+    private TbContentCategory tbContentCategory;
 }

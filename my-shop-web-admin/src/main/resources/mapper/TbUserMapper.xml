@@ -19,7 +19,7 @@
             (#{username}, #{password}, #{phone}, #{email}, #{created}, #{updated} )
     </insert>
 
-    <delete id="delete">
+    <delete id="delete" >
         DELETE FROM tb_user WHERE id=#{id}
     </delete>
 
@@ -58,14 +58,14 @@
         <include refid="TbUserColumns"/>
         FROM `tb_user` t
         <where>
-            <if test="user.username!='' and user.username!=null">
-                AND t.username LIKE CONCAT('%',#{user.username},'%')
+            <if test="param3.username!='' and param3.username!=null">
+                AND t.username LIKE CONCAT('%',#{param3.username},'%')
             </if>
-            <if test="user.email!='' and user.email!=null">
-                AND t.email LIKE CONCAT('%',#{user.email},'%')
+            <if test="param3.email!='' and param3.email!=null">
+                AND t.email LIKE CONCAT('%',#{param3.email},'%')
             </if>
-            <if test="user.phone!='' and user.phone!=null">
-                AND t.phone LIKE CONCAT('%',#{user.phone},'%')
+            <if test="param3.phone!='' and param3.phone!=null">
+                AND t.phone LIKE CONCAT('%',#{param3.phone},'%')
             </if>
         </where>
         limit #{start},#{length}
@@ -76,14 +76,14 @@
             count(*)
         FROM `tb_user` t
         <where>
-            <if test="user.username!='' and user.username!=null">
-                AND t.username LIKE CONCAT('%',#{user.username},'%')
+            <if test="_parameter.username!='' and _parameter.username!=null">
+                AND t.username LIKE CONCAT('%',#{_parameter.username},'%')
             </if>
-            <if test="user.email!='' and user.email!=null">
-                AND t.email LIKE CONCAT('%',#{user.email},'%')
+            <if test="_parameter.email!='' and _parameter.email!=null">
+                AND t.email LIKE CONCAT('%',#{_parameter.email},'%')
             </if>
-            <if test="user.phone!='' and user.phone!=null">
-                AND t.phone LIKE CONCAT('%',#{user.phone},'%')
+            <if test="_parameter.phone!='' and _parameter.phone!=null">
+                AND t.phone LIKE CONCAT('%',#{_parameter.phone},'%')
             </if>
         </where>
     </select>

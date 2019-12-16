@@ -14,25 +14,30 @@
         <result column="content" jdbcType="LONGVARCHAR" property="content"/>
         <result column="created" jdbcType="TIMESTAMP" property="created"/>
         <result column="updated" jdbcType="TIMESTAMP" property="updated"/>
+        <association property="tbContentCategory" javaType="TbContentCategory">
+            <id property="id" column="category_id"></id>
+            <result property="name" column="name"></result>
+        </association>
     </resultMap>
     <sql id="Base_Column_List">
-            id,
-            category_id,
-            title,
-            sub_title,
-            title_desc,
-            url,
-            pic,
-            pic2,
-            content,
-            created,
-            updated
+           a.id,
+           a.category_id,
+           a.title,
+           a.sub_title,
+           a.title_desc,
+           a.url,
+           a.pic,
+           a.pic2,
+           a.content,
+           a.created,
+           a.updated,
+           b.name
     </sql>
     <select id="getById" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from tb_content
-        where id = #{id,jdbcType=BIGINT}
+        from tb_content a left join tb_content_category b on a.category_id=b.id
+        where a.id = #{id,jdbcType=BIGINT}
     </select>
     <delete id="delete" parameterType="java.lang.Long">
         delete from tb_content
@@ -172,30 +177,30 @@
         count(*)
         FROM `tb_content` t
         <where>
-            <if test="content.title!='' and content.title!=null">
-                AND t.title LIKE CONCAT('%',#{content.title},'%')
+            <if test="_parameter.title!='' and _parameter.title!=null">
+                AND t.title LIKE CONCAT('%',#{_parameter.title},'%')
             </if>
-            <if test="content.subTitle!='' and content.subTitle!=null">
-                AND t.sub_title LIKE CONCAT('%',#{content.subTitle},'%')
+            <if test="_parameter.subTitle!='' and _parameter.subTitle!=null">
+                AND t.sub_title LIKE CONCAT('%',#{_parameter.subTitle},'%')
             </if>
-            <if test="content.titleDesc!='' and content.titleDesc!=null">
-                AND t.title_desc LIKE CONCAT('%',#{content.titleDesc},'%')
+            <if test="_parameter.titleDesc!='' and _parameter.titleDesc!=null">
+                AND t.title_desc LIKE CONCAT('%',#{_parameter.titleDesc},'%')
             </if>
         </where>
     </select>
     <select id="page" resultType="TbContent">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM `tb_content` t
+        from tb_content a left join tb_content_category b on a.category_id=b.id
         <where>
-            <if test="content.title!='' and content.title!=null">
-                AND t.title LIKE CONCAT('%',#{content.title},'%')
+            <if test="param3.title!='' and param3.title!=null">
+                AND a.title LIKE CONCAT('%',#{param3.title},'%')
             </if>
-            <if test="content.subTitle!='' and content.subTitle!=null">
-                AND t.sub_title LIKE CONCAT('%',#{content.subTitle},'%')
+            <if test="param3.subTitle!='' and param3.subTitle!=null">
+                AND a.sub_title LIKE CONCAT('%',#{param3.subTitle},'%')
             </if>
-            <if test="content.titleDesc!='' and content.titleDesc!=null">
-                AND t.title_desc LIKE CONCAT('%',#{content.titleDesc},'%')
+            <if test="param3.titleDesc!='' and param3.titleDesc!=null">
+                AND a.title_desc LIKE CONCAT('%',#{param3.titleDesc},'%')
             </if>
         </where>
         limit #{start},#{length}

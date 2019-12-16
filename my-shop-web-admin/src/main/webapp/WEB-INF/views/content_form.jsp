@@ -9,6 +9,9 @@
 <head>
     <jsp:include page="includes/header.jsp"/>
     <link rel="stylesheet" href="/static/asserts/plugins/jquery-ztree/css/zTreeStyle/zTreeStyle.min.css">
+    <link rel="stylesheet" href="/static/asserts/plugins/dropzone/dropzone.css"/>
+    <link rel="stylesheet" href="/static/asserts/plugins/dropzone/min/basic.min.css">
+    <link rel="stylesheet" href="/static/asserts/plugins/wangEditor/wangEditor.css"/>
     <title>我的商城 | 内容管理</title>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -58,14 +61,59 @@
                                     <div class="col-sm-8">
                                         <form:hidden path="categoryId"/>
                                         <input class="form-control required" id="categoryName" placeholder="请选择"
-                                               readonly="true" data-toggle="modal" data-target="#modal-detail"/>
+                                               readonly="true" data-toggle="modal" data-target="#modal-detail" value="${tbContent.tbContentCategory.name}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="title" class="col-sm-2 control-label">标题</label>
+                                    <div class="col-sm-8">
+                                        <form:input path="title" cssClass="form-control" placeholder="标题"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="subTitle" class="col-sm-2 control-label">子标题</label>
+                                    <div class="col-sm-8">
+                                        <form:input path="subTitle" cssClass="form-control" placeholder="子标题"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="titleDesc" class="col-sm-2 control-label">标题描述</label>
+                                    <div class="col-sm-8">
+                                        <form:input path="titleDesc" cssClass="form-control" placeholder="标题描述"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="url" class="col-sm-2 control-label">链接</label>
+                                    <div class="col-sm-8">
+                                        <form:input path="url" cssClass="form-control" placeholder="链接"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pic" class="col-sm-2 control-label">图片1</label>
+                                    <div class="col-sm-8">
+                                        <form:input path="pic" cssClass="form-control" placeholder="图片1"/>
+                                        <div id="dropz" class="dropzone dz-clickable"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pic2" class="col-sm-2 control-label">图片2</label>
+                                    <div class="col-sm-8">
+                                        <form:input path="pic2" cssClass="form-control" placeholder="图片2"/>
+                                        <div id="dropz2" class="dropzone dz-clickable"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="content" class="col-sm-2 control-label">详情</label>
+                                    <div class="col-sm-8">
+                                        <form:hidden path="content"/>
+                                        <div id="editor">${tbContent.content}</div>
                                     </div>
                                 </div>
                             </div>
                             <!-- /.box-body -->
                             <div class="justify-content-md-center box-footer">
                                 <button type="button" class="btn btn-default" onclick="history.go(-1)">返回</button>
-                                <button type="submit" class="btn btn-info pull-right">提交</button>
+                                <button type="submit" id="submitBtn" class="btn btn-info pull-right">提交</button>
                             </div>
                             <!-- /.box-footer -->
                         </form:form>
@@ -84,6 +132,8 @@
 <jsp:include page="includes/footer.jsp"/>
 <modal:detail title="请选择" content="<ul id='treeData' class='ztree'></ul>"/>
 <script src="/static/asserts/plugins/jquery-ztree/js/jquery.ztree.core-3.5.min.js"></script>
+<script src="/static/asserts/plugins/dropzone/min/dropzone.min.js"></script>
+<script src="/static/asserts/plugins/wangEditor/wangEditor.js"></script>
 <script>
     $(function () {
         App.initZtree("/category/tree/data", ["id"], function (selectedNodes) {
@@ -92,7 +142,49 @@
             $("#categoryName").val(selectedNode.name);
             return true;
         });
-    })
+        //初始化文本编辑器
+        var E = window.wangEditor;
+        var editor = new E('#editor');
+        editor.customConfig.uploadImgServer = "/upload";
+        editor.customConfig.uploadFileName = "dropFile";
+        editor.create();
+        $("#submitBtn").bind("click", function () {
+            var contentHtml = editor.txt.html();
+            $("#content").val(contentHtml);
+        });
+
+
+    });
+    //关闭dropzone自动初始化功能
+    Dropzone.autoDiscover = false;
+    //初始化dropzone方法
+    function initDropzone(divId, inputId) {
+        var myDropzone = App.initDropzone({
+            id: divId,
+            url: "/upload",
+            init: function () {
+                this.on("success", function (file, data) {
+                    if (data) {
+                        $(inputId).val(data.filename);
+                    }
+                });
+                this.on("removedfile", function (file) {
+                    $(inputId).val("");
+                });
+                /*var pic = $(inputId).val();
+                var mockFile = { name: pic, size: 10000,accepted:true };
+                this.emit("addedfile", mockFile);
+                this.emit("thumbnail", mockFile, ${pageContext.request.contextPath}pic);
+                this.emit("complete", mockFile);*/
+            }
+
+        });
+    }
+
+    initDropzone("#dropz", "#pic");
+    initDropzone("#dropz2", "#pic2");
+
 </script>
 </body>
+upload
 </html>

@@ -88,6 +88,13 @@
             <artifactId>junit</artifactId>
         </dependency>
         <!--test end-->
+
+        <!--file upload-->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+        </dependency>
+        <!--end-->
     </dependencies>
 
 

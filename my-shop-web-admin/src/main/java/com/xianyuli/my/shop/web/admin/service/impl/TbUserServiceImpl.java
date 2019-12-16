@@ -2,8 +2,7 @@ package com.xianyuli.my.shop.web.admin.service.impl;
 
 import com.xianyuli.my.shop.commoms.dto.BaseResult;
 import com.xianyuli.my.shop.commoms.dto.PageInfo;
-import com.xianyuli.my.shop.commoms.utils.ConstantUtils;
-import com.xianyuli.my.shop.commoms.utils.RegexpUtils;
+import com.xianyuli.my.shop.commoms.validator.BeanValidator;
 import com.xianyuli.my.shop.domain.TbUser;
 import com.xianyuli.my.shop.web.admin.dao.TbUserDao;
 import com.xianyuli.my.shop.web.admin.service.TbUserService;
@@ -53,8 +52,14 @@ public class TbUserServiceImpl implements TbUserService {
 
     @Override
     public BaseResult save(TbUser tbUser) {
-        BaseResult baseResult = checkTbUser(tbUser);
-        if (baseResult.getStatus() == ConstantUtils.STATUS_SUCCESS) {
+        String validMsg = BeanValidator.validator(tbUser);
+        if (StringUtils.isNotBlank(validMsg)) {
+            return BaseResult.fail(validMsg);
+        } else {
+            validMsg = checkTbUser(tbUser);
+            if (StringUtils.isNotBlank(validMsg)) {
+                return BaseResult.fail(validMsg);
+            }
             tbUser.setUpdated(new Date());
             //新增用户
             if (tbUser.getId() == null) {
@@ -65,11 +70,8 @@ public class TbUserServiceImpl implements TbUserService {
             } else {//更新用户
                 tbUserDao.update(tbUser);
             }
-            baseResult.setMsg("保存成功");
+            return BaseResult.success("保存成功");
         }
-
-        return baseResult;
-
     }
 
     @Override
@@ -119,29 +121,16 @@ public class TbUserServiceImpl implements TbUserService {
      * @Author:LW
      * @Date: 2018/11/11 0011 16:55
      */
-    private BaseResult checkTbUser(TbUser tbUser) {
+    private String checkTbUser(TbUser tbUser) {
         BaseResult baseResult = BaseResult.success();
-        if (StringUtils.isBlank(tbUser.getEmail())) {
-            baseResult = baseResult.fail("邮箱不能为空，请重新输入。");
-        } else if (!RegexpUtils.checkEmail(tbUser.getEmail())) {
-            baseResult = baseResult.fail("邮箱格式不正确");
-        } else if (StringUtils.isBlank(tbUser.getPassword())) {
-            baseResult = baseResult.fail("密码不能为空，请重新输入。");
-        } else if (StringUtils.isBlank(tbUser.getUsername())) {
-            baseResult = baseResult.fail("姓名不能为空，请重新输入。");
-        } else if (StringUtils.isBlank(tbUser.getPhone())) {
-            baseResult = baseResult.fail("手机不能为空，请重新输入。");
-        } else if (!RegexpUtils.checkPhone(tbUser.getPhone())) {
-            baseResult = baseResult.fail("手机格式不正确");
-        } else if (tbUser.getId() == null) {
+        if (tbUser.getId() == null) {
             //用户信息唯一性验证
             List<TbUser> list = getByUsername(tbUser.getUsername());
-            if (list != null && list.size() > 0) {
-                baseResult = baseResult.fail("用户名" + tbUser.getUsername() + "已存在");
+            if (!list.isEmpty()) {
+                return String.format("用户名%s已存在", tbUser.getUsername());
             }
         }
-
-        return baseResult;
+        return null;
 
     }
 

@@ -50,5 +50,5 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 <!--app-->
-<script src="/static/asserts/app/validation.js"></script>
+<%--<script src="/static/asserts/app/validation.js"></script>--%>
 <script src="/static/asserts/app/app.js"></script>

@@ -23,6 +23,7 @@ import java.io.Serializable;
 public class BaseResult implements Serializable {
     private int status;
     private  String msg;
+    private Object data;
 
     public static BaseResult success(){
         return createResult(ConstantUtils.STATUS_SUCCESS,"成功");

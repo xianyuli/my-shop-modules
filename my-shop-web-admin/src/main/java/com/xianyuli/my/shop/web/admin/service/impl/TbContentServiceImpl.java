@@ -2,10 +2,11 @@ package com.xianyuli.my.shop.web.admin.service.impl;
 
 import com.xianyuli.my.shop.commoms.dto.BaseResult;
 import com.xianyuli.my.shop.commoms.dto.PageInfo;
-import com.xianyuli.my.shop.commoms.utils.ConstantUtils;
+import com.xianyuli.my.shop.commoms.validator.BeanValidator;
 import com.xianyuli.my.shop.domain.TbContent;
 import com.xianyuli.my.shop.web.admin.dao.TbContentDao;
 import com.xianyuli.my.shop.web.admin.service.TbContentService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,8 +44,10 @@ public class TbContentServiceImpl implements TbContentService {
 
     @Override
     public BaseResult save(TbContent tbContent) {
-        BaseResult baseResult = checkContent(tbContent);
-        if (baseResult.getStatus() == ConstantUtils.STATUS_SUCCESS) {
+        String validMsg = BeanValidator.validator(tbContent);
+        if (StringUtils.isNotBlank(validMsg)) {
+            return BaseResult.fail(validMsg);
+        }else{
             tbContent.setUpdated(new Date());
             //新增内容
             if (tbContent.getId() == null) {
@@ -54,15 +57,8 @@ public class TbContentServiceImpl implements TbContentService {
             } else {//更新用户
                 tbContentDao.updateByIdSelective(tbContent);
             }
-            baseResult.setMsg("保存成功");
+            return BaseResult.success("保存成功");
         }
-
-        return baseResult;
-
-    }
-
-    private BaseResult checkContent(TbContent tbContent) {
-        return BaseResult.success();
     }
 
     @Override

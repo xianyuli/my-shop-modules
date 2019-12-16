@@ -242,13 +242,12 @@
             },
             {
                 "data": function (row, type, val, meta) {
-                    console.log(row.pic ? row.pic : '');
-                    return "<a href='" + row.pic?row.pic:'' + "' target='_blank'>查看</a>"
+                    return row.pic ? "<a href='"+row.pic+"' target='_blank'>查看</a>" : '';
                 }
             },
             {
                 "data": function (row, type, val, meta) {
-                    return "<a href='" + row.pic2?row.pic2:'' + "' target='_blank'>查看</a>"
+                    return row.pic2 ? "<a href='"+row.pic2+"' target='_blank'>查看</a>" : '';
                 }
             },
             {"data": "updated"},
