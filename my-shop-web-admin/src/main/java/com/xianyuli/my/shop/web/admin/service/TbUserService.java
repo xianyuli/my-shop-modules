@@ -2,6 +2,8 @@ package com.xianyuli.my.shop.web.admin.service;
 
 import com.xianyuli.my.shop.commoms.dto.BaseResult;
 import com.xianyuli.my.shop.commoms.dto.PageInfo;
+import com.xianyuli.my.shop.commoms.persistence.BaseService;
+import com.xianyuli.my.shop.domain.TbContent;
 import com.xianyuli.my.shop.domain.TbUser;
 
 import java.util.List;
@@ -18,24 +20,10 @@ import java.util.List;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public interface TbUserService {
-
-    PageInfo<TbUser> page(int start, int length, int draw, TbUser tbUser);
-
-    int count(TbUser tbUser);
-
-    BaseResult save(TbUser tbUser);
-
-    void delete(long id);
-
-    TbUser getById(long id);
-
-    void update(TbUser tbUser);
+public interface TbUserService extends BaseService<TbUser> {
 
     List<TbUser> getByUsername(String username);
 
     TbUser login(String email, String password);
-
-    int deleteMutil(String[] ids);
 
 }

@@ -3,29 +3,73 @@
 <mapper namespace="com.xianyuli.my.shop.web.admin.dao.TbContentCategoryDao">
 
     <sql id="contentCategoryColumns">
-        c.id,
-        c.parent_id as parentId,
-        c.name,
-        c.status,
-        c.sort_order as sortOrder,
-        c.is_parent as isParent,
-        c.created,
-        c.updated
+            c.id,
+            c.name,
+            c.status,
+            c.sort_order        as sortOrder,
+            c.is_parent         as isParent,
+            c.created,
+            c.updated,
+            IFNULL(d.id, '0')   as 'parent.id',
+            IFNULL(d.name, '/') as 'parent.name'
     </sql>
 
     <select id="selectAll" resultType="TbContentCategory">
         SELECT
         <include refid="contentCategoryColumns"/>
-        FROM tb_content_category c
+        FROM tb_content_category c left join tb_content_category d on c.parent_id=d.id
+        where c.status=1
         ORDER BY c.parent_id ASC, c.sort_order ASC, c.is_parent DESC
+    </select>
+
+    <select id="getById" resultType="TbContentCategory">
+        select
+        <include refid="contentCategoryColumns"/>
+        FROM tb_content_category c left join tb_content_category d on c.parent_id=d.id
+        where c.id=#{id} and c.status=1
     </select>
 
     <select id="selectByPid" resultType="TbContentCategory">
         SELECT
         <include refid="contentCategoryColumns"/>
-        FROM tb_content_category c
-        where parent_id=#{parentId}
+        FROM tb_content_category c left join tb_content_category d on c.parent_id=d.id
+        where c.parent_id=#{parent.id} and c.status=1
         ORDER BY c.parent_id ASC, c.sort_order ASC, c.is_parent DESC
     </select>
 
+    <insert id="insert" parameterType="TbContentCategory">
+        INSERT INTO `myshop`.`tb_content_category`
+        (`parent_id`, `name`, `status`, `sort_order`, `is_parent`, `created`, `updated`)
+        VALUES
+        (#{parent.id},#{name},#{status},#{sortOrder},#{isParent},#{created},#{updated})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM tb_content_category
+        WHERE id = #{id}
+    </delete>
+
+    <update id="updateStatusByPid" parameterType="TbContentCategory">
+        UPDATE
+        tb_content_category
+        SET
+        `status` = #{status},
+        `updated`= #{updated}
+        WHERE parent_id=#{id}
+    </update>
+
+
+    <update id="update" parameterType="TbContentCategory">
+        UPDATE
+        tb_content_category
+        SET
+        `parent_id` = #{parent.id},
+        `name` = #{name},
+        `status` = #{status},
+        `sort_order` = #{sortOrder},
+        `is_parent` = #{isParent},
+        `created` = #{created},
+        `updated` = #{updated}
+        WHERE `id` = #{id}
+    </update>
 </mapper>

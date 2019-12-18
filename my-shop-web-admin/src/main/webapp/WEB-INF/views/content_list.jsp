@@ -87,17 +87,12 @@
                             <h3 class="box-title">用户列表</h3>
                             <div class="row box-body">
                                 <div class="col">
-                                    <a href="/content/form" type="button" class="btn btn-sm btn-default"
-                                       style="margin-left: 10px"><i class="fa fa-plus"></i>新增</a>
-                                    <a type="button" class="btn btn-sm btn-default" onclick="deleteMulti()"
-                                       style="margin-left: 10px"><i class="fa fa-trash-o"></i>删除</a>
-                                    <a href="" type="button" class="btn btn-sm btn-default" style="margin-left: 10px"><i
-                                            class="fa fa-upload"></i>导入</a>
-                                    <a href="" type="button" class="btn btn-sm btn-default" style="margin-left: 10px"><i
-                                            class="fa fa-download"></i>导出</a>
+                                    <a href="/content/form" type="button" class="btn btn-sm btn-default" style="margin-left: 10px"><i class="fa fa-plus"></i>新增</a>
+                                    <a type="button" class="btn btn-sm btn-default" onclick="deleteMulti()" style="margin-left: 10px"><i class="fa fa-trash-o"></i>删除</a>
+                                    <a href="" type="button" class="btn btn-sm btn-default" style="margin-left: 10px"><i class="fa fa-upload"></i>导入</a>
+                                    <a href="" type="button" class="btn btn-sm btn-default" style="margin-left: 10px"><i class="fa fa-download"></i>导出</a>
                                     <a type="button" class="btn btn-sm btn-primary"
-                                       onclick="$('.box-info-search').toggle()" style="margin-left: 10px"><i
-                                            class="fa fa-search"></i>搜索</a>
+                                       onclick="$('.box-info-search').toggle()" style="margin-left: 10px"><i class="fa fa-search"></i>搜索</a>
                                 </div>
                             </div>
 

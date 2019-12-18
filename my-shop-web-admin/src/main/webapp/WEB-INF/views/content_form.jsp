@@ -8,10 +8,10 @@
 <html>
 <head>
     <jsp:include page="includes/header.jsp"/>
-    <link rel="stylesheet" href="/static/asserts/plugins/jquery-ztree/css/zTreeStyle/zTreeStyle.min.css">
-    <link rel="stylesheet" href="/static/asserts/plugins/dropzone/dropzone.css"/>
-    <link rel="stylesheet" href="/static/asserts/plugins/dropzone/min/basic.min.css">
-    <link rel="stylesheet" href="/static/asserts/plugins/wangEditor/wangEditor.css"/>
+    <link rel="stylesheet" href="/static/assets/plugins/jquery-ztree/css/zTreeStyle/zTreeStyle.min.css">
+    <link rel="stylesheet" href="/static/assets/plugins/dropzone/dropzone.css"/>
+    <link rel="stylesheet" href="/static/assets/plugins/dropzone/min/basic.min.css">
+    <link rel="stylesheet" href="/static/assets/plugins/wangEditor/wangEditor.css"/>
     <title>我的商城 | 内容管理</title>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -131,9 +131,9 @@
 
 <jsp:include page="includes/footer.jsp"/>
 <modal:detail title="请选择" content="<ul id='treeData' class='ztree'></ul>"/>
-<script src="/static/asserts/plugins/jquery-ztree/js/jquery.ztree.core-3.5.min.js"></script>
-<script src="/static/asserts/plugins/dropzone/min/dropzone.min.js"></script>
-<script src="/static/asserts/plugins/wangEditor/wangEditor.js"></script>
+<script src="/static/assets/plugins/jquery-ztree/js/jquery.ztree.core-3.5.min.js"></script>
+<script src="/static/assets/plugins/dropzone/min/dropzone.min.js"></script>
+<script src="/static/assets/plugins/wangEditor/wangEditor.js"></script>
 <script>
     $(function () {
         App.initZtree("/category/tree/data", ["id"], function (selectedNodes) {

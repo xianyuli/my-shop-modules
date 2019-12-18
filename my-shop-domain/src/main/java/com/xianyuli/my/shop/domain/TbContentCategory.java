@@ -19,9 +19,9 @@ import javax.validation.constraints.NotNull;
 public class TbContentCategory extends BaseEntity {
     @Length(min = 1, max = 20, message = "分类名称必须介于 1 - 20 位之间")
     private String name;
-    private Long parentId;
     private Integer status;
     @NotNull(message = "排序不能为空")
     private Integer sortOrder;
     private Boolean isParent;
+    private TbContentCategory parent;
 }

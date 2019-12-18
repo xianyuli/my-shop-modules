@@ -9,7 +9,7 @@ import java.util.List;
  * @Description: 数据访问层的基类
  * @Author: LW
  */
-public interface BaseDao<T> {
+public interface BaseDao<T extends BaseEntity> {
     /**
      * 新增
      *

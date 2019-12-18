@@ -55,7 +55,7 @@ public class TbContentServiceImpl implements TbContentService {
                 tbContent.setCreated(new Date());
                 tbContentDao.insert(tbContent);
             } else {//更新用户
-                tbContentDao.updateByIdSelective(tbContent);
+                tbContentDao.update(tbContent);
             }
             return BaseResult.success("保存成功");
         }
