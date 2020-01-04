@@ -2,16 +2,16 @@ package com.xianyuli.my.shop.web.admin.view.controller;
 
 import com.xianyuli.my.shop.commoms.dto.BaseResult;
 import com.xianyuli.my.shop.commoms.dto.PageInfo;
+import com.xianyuli.my.shop.domain.TbContent;
+import com.xianyuli.my.shop.web.admin.abstracts.AbstractBaseController;
 import com.xianyuli.my.shop.domain.TbUser;
 import com.xianyuli.my.shop.web.admin.service.TbUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * @ProjectName: my-shop-modules
@@ -28,7 +28,20 @@ import java.util.List;
 @Controller
 
 @RequestMapping(value = "user")
-public class UserController {
+public class UserController extends AbstractBaseController<TbUser, TbUserService> {
+
+    @Override
+    @ModelAttribute
+    public TbUser setEntity(Long id) {
+        TbUser tbUser = null;
+        if (id != null) {
+            tbUser = service.getById(id);
+        } else {
+            tbUser = new TbUser();
+        }
+        return tbUser;
+    }
+
     /**
      * 功能描述: 跳转用户表单
      * 〈〉
@@ -37,23 +50,10 @@ public class UserController {
      * @Author:LW
      * @Date: 2018/10/29 0029 23:18
      */
+    @Override
     @RequestMapping(value = "form", method = RequestMethod.GET)
-    public String form() {
+    public String form(TbUser tbUser) {
         return "user_form";
-    }
-
-    @Autowired
-    private TbUserService tbUserService;
-
-    @ModelAttribute
-    public TbUser setTbuser(Long id) {
-        TbUser tbUser = null;
-        if (id != null) {
-            tbUser = tbUserService.getById(id);
-        } else {
-            tbUser = new TbUser();
-        }
-        return tbUser;
     }
 
 
@@ -65,8 +65,9 @@ public class UserController {
      * @Author:LW
      * @Date: 2018/10/29 0029 23:18
      */
+    @Override
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public String list() {
+    public String list(Model model) {
         return "user_list";
     }
 
@@ -78,16 +79,17 @@ public class UserController {
      * @Author:LW
      * @Date: 2018/10/30 0030 0:06
      */
+    @Override
     @RequestMapping(value = "save", method = RequestMethod.POST)
     public String save(TbUser tbUser, Model model, RedirectAttributes redirectAttributes) {
-        BaseResult baseResult = tbUserService.save(tbUser);
+        BaseResult baseResult = service.save(tbUser);
         if (baseResult.getStatus() == 200) {
             redirectAttributes.addFlashAttribute("baseResult", baseResult);
             return "redirect:/user/list";
         } else {
             model.addAttribute("baseResult", baseResult);
             model.addAttribute("tbUser", tbUser);
-            return "user_form";
+            return form(tbUser);
         }
     }
 
@@ -99,34 +101,19 @@ public class UserController {
      * @Author:LW
      * @Date: 2019/6/23 0023 15:54
      */
+    @Override
     @ResponseBody
     @RequestMapping(value = "delete", method = RequestMethod.POST)
-    public BaseResult detele(@RequestParam("ids[]") String[] ids) {
-        int i = tbUserService.deleteMutil(ids);
+    public BaseResult delete(@RequestParam("ids[]") String[] ids) {
+        int i = service.deleteMutil(ids);
         return BaseResult.success();
     }
 
-    /**
-     * 分页查询
-     *
-     * @param request
-     */
-    @ResponseBody
-    @RequestMapping(value = "page", method = RequestMethod.GET)
-    public PageInfo<TbUser> page(HttpServletRequest request, TbUser tbUser) {
-        String strDraw = request.getParameter("draw");
-        String strLength = request.getParameter("length");
-        String strStart = request.getParameter("start");
-        int draw = strDraw == null ? 0 : Integer.parseInt(strDraw);
-        int length = strLength == null ? 0 : Integer.parseInt(strLength);
-        int start = strStart == null ? 0 : Integer.parseInt(strStart);
-        return tbUserService.page(start, length, draw, tbUser);
-    }
 
-
+    @Override
     @RequestMapping(value = "detail", method = RequestMethod.GET)
     public String detail(long id, Model model) {
-        TbUser tbUser = tbUserService.getById(id);
+        TbUser tbUser = service.getById(id);
         model.addAttribute("tbUser", tbUser);
         return "user_detail";
     }

@@ -146,7 +146,7 @@
         var E = window.wangEditor;
         var editor = new E('#editor');
         editor.customConfig.uploadImgServer = "/upload";
-        editor.customConfig.uploadFileName = "dropFile";
+        editor.customConfig.uploadFileName = "dropFiles";
         editor.create();
         $("#submitBtn").bind("click", function () {
             var contentHtml = editor.txt.html();

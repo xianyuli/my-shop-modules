@@ -1,46 +1,45 @@
 package com.xianyuli.my.shop.web.admin.service.impl;
 
+import com.sun.xml.internal.bind.v2.TODO;
 import com.xianyuli.my.shop.commoms.dto.BaseResult;
-import com.xianyuli.my.shop.commoms.dto.PageInfo;
+import com.xianyuli.my.shop.web.admin.abstracts.AbstractBaseServiceImpl;
 import com.xianyuli.my.shop.commoms.validator.BeanValidator;
 import com.xianyuli.my.shop.domain.TbContentCategory;
 import com.xianyuli.my.shop.web.admin.dao.TbContentCategoryDao;
 import com.xianyuli.my.shop.web.admin.service.TbContentCategoryService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author LW
+ */
 @Service
-public class TbContentCategoryServiceImpl implements TbContentCategoryService {
-
-    @Autowired
-    TbContentCategoryDao tbContentCategoryDao;
-
+public class TbContentCategoryServiceImpl extends AbstractBaseServiceImpl<TbContentCategory, TbContentCategoryDao> implements TbContentCategoryService {
 
     @Override
     public List<TbContentCategory> selectAll() {
         List<TbContentCategory> list = new ArrayList<>();
-        List<TbContentCategory> tbContentCategories = tbContentCategoryDao.selectAll();
+        List<TbContentCategory> tbContentCategories = dao.selectAll();
         if (tbContentCategories != null && !tbContentCategories.isEmpty()) {
-            //查询根节点
-            List<TbContentCategory> rootList = tbContentCategoryDao.selectByPid(0L);
+            //查询根节点 根节点的parentId=0
+            List<TbContentCategory> rootList = dao.selectByPid(0L);
             //递归排序
             for (TbContentCategory root : rootList) {
                 sortList(tbContentCategories, list, root);
             }
         }
-
         return list;
     }
 
     @Override
     public List<TbContentCategory> selectByPid(Long pid) {
-        return tbContentCategoryDao.selectByPid(pid);
+        return dao.selectByPid(pid);
     }
 
     @Override
@@ -48,9 +47,8 @@ public class TbContentCategoryServiceImpl implements TbContentCategoryService {
         //状态设为无效
         tbContentCategory.setStatus(0);
         tbContentCategory.setUpdated(new Date());
-        tbContentCategoryDao.updateStatusByPid(tbContentCategory);
+        dao.updateStatusByPid(tbContentCategory);
     }
-
 
     private void sortList(List<TbContentCategory> sourceList, List<TbContentCategory> resultList, TbContentCategory parent) {
         resultList.add(parent);
@@ -64,16 +62,7 @@ public class TbContentCategoryServiceImpl implements TbContentCategoryService {
     }
 
     @Override
-    public PageInfo<TbContentCategory> page(int start, int length, int draw, TbContentCategory tbContentCategory) {
-        return null;
-    }
-
-    @Override
-    public int count(TbContentCategory tbContentCategory) {
-        return 0;
-    }
-
-    @Override
+    @Transactional
     public BaseResult save(TbContentCategory tbContentCategory) {
         String validMsg = BeanValidator.validator(tbContentCategory);
         if (StringUtils.isNotBlank(validMsg)) {
@@ -91,38 +80,21 @@ public class TbContentCategoryServiceImpl implements TbContentCategoryService {
             tbContentCategory.setUpdated(date);
             tbContentCategory.setStatus(1);
             if (tbContentCategory.getId() == null) {
-                parent = tbContentCategoryDao.getById(parent.getId());
-                if (parent == null || parent.getParent().getId() == 0) {
-                    tbContentCategory.setIsParent(true);
-                } else {
-                    tbContentCategory.setIsParent(false);
+                tbContentCategory.setIsParent(false);
+                // 判断当前新增的节点有没有父级节点
+                if (parent.getId() != 0L) {
+                    parent = dao.getById(parent.getId());
+                    if (parent != null) {
+                        parent.setIsParent(true);
+                        update(parent);
+                    }
                 }
                 tbContentCategory.setCreated(date);
-                tbContentCategoryDao.insert(tbContentCategory);
+                dao.insert(tbContentCategory);
             } else {
-                tbContentCategoryDao.update(tbContentCategory);
+                update(tbContentCategory);
             }
             return BaseResult.success("保存成功");
         }
-    }
-
-    @Override
-    public void delete(long id) {
-        tbContentCategoryDao.delete(id);
-    }
-
-    @Override
-    public TbContentCategory getById(long id) {
-        return tbContentCategoryDao.getById(id);
-    }
-
-    @Override
-    public void update(TbContentCategory tbContentCategory) {
-
-    }
-
-    @Override
-    public int deleteMutil(String[] ids) {
-        return 0;
     }
 }

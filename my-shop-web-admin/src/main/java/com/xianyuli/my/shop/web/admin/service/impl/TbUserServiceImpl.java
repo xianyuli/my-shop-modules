@@ -1,13 +1,12 @@
 package com.xianyuli.my.shop.web.admin.service.impl;
 
 import com.xianyuli.my.shop.commoms.dto.BaseResult;
-import com.xianyuli.my.shop.commoms.dto.PageInfo;
+import com.xianyuli.my.shop.web.admin.abstracts.AbstractBaseServiceImpl;
 import com.xianyuli.my.shop.commoms.validator.BeanValidator;
 import com.xianyuli.my.shop.domain.TbUser;
 import com.xianyuli.my.shop.web.admin.dao.TbUserDao;
 import com.xianyuli.my.shop.web.admin.service.TbUserService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -27,28 +26,7 @@ import java.util.List;
  * @Version: 1.0
  */
 @Service
-public class TbUserServiceImpl implements TbUserService {
-
-    @Autowired
-    TbUserDao tbUserDao;
-
-    @Override
-    public PageInfo<TbUser> page(int start, int length, int draw, TbUser tbUser) {
-        PageInfo<TbUser> result = new PageInfo<>();
-        List<TbUser> list = tbUserDao.page(start, length, tbUser);
-        int count = count(tbUser);
-        result.setDraw(draw);
-        result.setRecordsTotal(count);
-        result.setRecordsFiltered(count);
-        result.setData(list);
-        result.setError("");
-        return result;
-    }
-
-    @Override
-    public int count(TbUser tbUser) {
-        return tbUserDao.count(tbUser);
-    }
+public class TbUserServiceImpl extends AbstractBaseServiceImpl<TbUser,TbUserDao> implements TbUserService {
 
     @Override
     public BaseResult save(TbUser tbUser) {
@@ -66,37 +44,23 @@ public class TbUserServiceImpl implements TbUserService {
                 //密码加密
                 tbUser.setPassword(DigestUtils.md5DigestAsHex(tbUser.getPassword().getBytes()));
                 tbUser.setCreated(new Date());
-                tbUserDao.insert(tbUser);
+                dao.insert(tbUser);
             } else {//更新用户
-                tbUserDao.update(tbUser);
+                dao.update(tbUser);
             }
             return BaseResult.success("保存成功");
         }
     }
 
-    @Override
-    public void delete(long id) {
-        tbUserDao.delete(id);
-    }
-
-    @Override
-    public TbUser getById(long id) {
-        return tbUserDao.getById(id);
-    }
-
-    @Override
-    public void update(TbUser tbUser) {
-        tbUserDao.update(tbUser);
-    }
 
     @Override
     public List<TbUser> getByUsername(String username) {
-        return tbUserDao.getByUsername(username);
+        return dao.getByUsername(username);
     }
 
     @Override
     public TbUser login(String email, String password) {
-        TbUser tbUser = tbUserDao.getByEmail(email);
+        TbUser tbUser = dao.getByEmail(email);
         if (tbUser != null) {
             String pwd = tbUser.getPassword();
             String md5Password = DigestUtils.md5DigestAsHex(password.getBytes());
@@ -106,11 +70,6 @@ public class TbUserServiceImpl implements TbUserService {
         }
 
         return null;
-    }
-
-    @Override
-    public int deleteMutil(String[] ids) {
-        return tbUserDao.deleteMutil(ids);
     }
 
     /**

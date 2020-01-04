@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.*;
 
@@ -30,22 +31,12 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
  * @version 1.0.0
  * @date 2018/6/26 17:21
  */
-/**
- * 不加@Component Spring不会扫描这个类
- */
-
-@Component
 public class BeanValidator {
 
     private static Validator validator;
 
-    /**
-     * 静态属性可以用构造注入 或者setter注入，方法不能static
-     * @param validator
-     */
-    @Autowired
-    public void setValidator(Validator validator) {
-        BeanValidator.validator = validator;
+    static {
+        validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 
     /**

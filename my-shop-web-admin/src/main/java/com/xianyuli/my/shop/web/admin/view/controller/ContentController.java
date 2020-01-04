@@ -3,6 +3,7 @@ package com.xianyuli.my.shop.web.admin.view.controller;
 import com.xianyuli.my.shop.commoms.dto.BaseResult;
 import com.xianyuli.my.shop.commoms.dto.PageInfo;
 import com.xianyuli.my.shop.domain.TbContent;
+import com.xianyuli.my.shop.web.admin.abstracts.AbstractBaseController;
 import com.xianyuli.my.shop.web.admin.service.TbContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,21 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping(value = "content")
-public class ContentController {
+public class ContentController extends AbstractBaseController<TbContent, TbContentService> {
+
+
+    @Override
+    @ModelAttribute
+    public TbContent setEntity(Long id) {
+        TbContent tbContent = null;
+        if (id != null) {
+            tbContent = service.getById(id);
+        } else {
+            tbContent = new TbContent();
+        }
+        return tbContent;
+    }
+
     /**
      * 功能描述: 跳转用户表单
      * 〈〉
@@ -28,24 +43,12 @@ public class ContentController {
      * @Author:LW
      * @Date: 2018/10/29 0029 23:18
      */
+    @Override
     @RequestMapping(value = "form", method = RequestMethod.GET)
-    public String form() {
+    public String form(TbContent tbContent) {
         return "content_form";
     }
 
-    @Autowired
-    private TbContentService tbContentService;
-
-    @ModelAttribute
-    public TbContent setTbContent(Long id) {
-        TbContent tbContent = null;
-        if (id != null) {
-            tbContent = tbContentService.getById(id);
-        } else {
-            tbContent = new TbContent();
-        }
-        return tbContent;
-    }
 
 
     /**
@@ -56,8 +59,9 @@ public class ContentController {
      * @Author:LW
      * @Date: 2018/10/29 0029 23:18
      */
+    @Override
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public String list() {
+    public String list(Model model) {
         return "content_list";
     }
 
@@ -69,16 +73,17 @@ public class ContentController {
      * @Author:LW
      * @Date: 2018/10/30 0030 0:06
      */
+    @Override
     @RequestMapping(value = "save", method = RequestMethod.POST)
     public String save(TbContent tbContent, Model model, RedirectAttributes redirectAttributes) {
-        BaseResult baseResult = tbContentService.save(tbContent);
+        BaseResult baseResult = service.save(tbContent);
         if (baseResult.getStatus() == 200) {
             redirectAttributes.addFlashAttribute("baseResult", baseResult);
             return "redirect:/content/list";
         } else {
             model.addAttribute("baseResult", baseResult);
             model.addAttribute("tbContent", tbContent);
-            return "content_form";
+            return form(tbContent);
         }
     }
 
@@ -90,34 +95,19 @@ public class ContentController {
      * @Author:LW
      * @Date: 2019/6/23 0023 15:54
      */
+    @Override
     @ResponseBody
     @RequestMapping(value = "delete", method = RequestMethod.POST)
-    public BaseResult detele(@RequestParam("ids[]") String[] ids) {
-        int i = tbContentService.deleteMutil(ids);
+    public BaseResult delete(@RequestParam("ids[]") String[] ids) {
+        int i = service.deleteMutil(ids);
         return BaseResult.success();
     }
 
-    /**
-     * 分页查询
-     *
-     * @param request
-     */
-    @ResponseBody
-    @RequestMapping(value = "page", method = RequestMethod.GET)
-    public PageInfo<TbContent> page(HttpServletRequest request, TbContent tbContent) {
-        String strDraw = request.getParameter("draw");
-        String strLength = request.getParameter("length");
-        String strStart = request.getParameter("start");
-        int draw = strDraw == null ? 0 : Integer.parseInt(strDraw);
-        int length = strLength == null ? 0 : Integer.parseInt(strLength);
-        int start = strStart == null ? 0 : Integer.parseInt(strStart);
-        return tbContentService.page(start, length, draw, tbContent);
-    }
 
-
+    @Override
     @RequestMapping(value = "detail", method = RequestMethod.GET)
     public String detail(long id, Model model) {
-        TbContent tbContent = tbContentService.getById(id);
+        TbContent tbContent = service.getById(id);
         model.addAttribute("tbContent", tbContent);
         return "content_detail";
     }

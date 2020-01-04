@@ -45,7 +45,7 @@
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form:form id="userForm" cssClass="form-horizontal" action="/user/save" method="post" modelAttribute="tbUser">
+                        <form:form id="inputForm" cssClass="form-horizontal" action="/user/save" method="post" modelAttribute="tbUser">
                             <!--用户ID-->
                             <form:hidden path="id"/>
                             <div class="box-body">
