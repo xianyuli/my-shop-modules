@@ -89,7 +89,8 @@
                                 <div class="col">
                                     <a href="/user/form" type="button" class="btn btn-sm btn-default"
                                        style="margin-left: 10px"><i class="fa fa-plus"></i>新增</a>
-                                    <a type="button" class="btn btn-sm btn-default" onclick="deleteMulti()"
+                                    <a type="button" class="btn btn-sm btn-default"
+                                       onclick="App.deleteMulti('/user/delete')"
                                        style="margin-left: 10px"><i class="fa fa-trash-o"></i>删除</a>
                                     <a href="" type="button" class="btn btn-sm btn-default" style="margin-left: 10px"><i
                                             class="fa fa-upload"></i>导入</a>
@@ -107,7 +108,7 @@
                             <table id="dataTable" class="table table-hover">
                                 <thead>
                                 <tr>
-                                    <th><input type="checkbox" class="minimal checkmaster" value=""/></th>
+                                    <th><input type="checkbox" class="minimal `check_master`" value=""/></th>
                                     <th>ID</th>
                                     <th>用户名</th>
                                     <th>手机号</th>
@@ -140,59 +141,11 @@
 <modal:modal-msg message=""/>
 <modal:detail/>
 <script>
-    //多选的数据ID数组
-    var idArray;
     var dataTable;
-    function getCheckedBox() {
-        idArray = [];
-        var checkboxs = App.getCheckChilds();
-        checkboxs.each(function () {
-            if ($(this).val() && $(this).is(":checked")) {
-                idArray.push($(this).val());
-            }
-        });
-    }
+    $(function () {
+        dataTable = drawTable();
 
-    function deleteMulti(ids) {
-        if (ids) {
-            idArray = ids;
-        } else {
-            getCheckedBox();
-        }
-        var arrNum = idArray.length;
-        if (idArray && idArray.length > 0) {
-            $("#modal-msg").modal("show");
-            $("#modalMessage").text("您确定要删除所选的" + arrNum + "条数据吗？");
-        } else {
-            $("#modal-msg").modal("show");
-            $("#modalMessage").text("您还没选择任何数据项，请至少选择一项！");
-        }
-    }
-
-    function delOne(id) {
-        deleteMulti([id.toString()]);
-    }
-
-    function del(ids) {
-        $("#modal-msg").modal("hide");
-        if (ids) {
-            $.ajax({
-                type: 'POST',
-                url: "/user/delete",
-                data: {"ids": ids},
-                aysnc: false,
-                success: function (data) {
-                    console.log(data);
-                    if (data.status && data.status === 200) {
-                        window.location.reload();
-                    } else {
-                        $(".alertMessage").text(data.msg);
-                        $(".alert").removeClass("alert-success").addClass("alert-danger").show();
-                    }
-                }
-            });
-        }
-    }
+    });
 
     function showDetail(id) {
         $.ajax({
@@ -234,25 +187,15 @@
             {"data": "updated"},
             {
                 "data": function (row, type, val, meta) {
-                    return '<a onclick="showDetail(' + row.id + ')" style="margin-right: 10px;" class="btn  btn-default btn-sm"><i class="fa fa-search"></i> 查看</a>' +
-                        '<a href="/user/form?id=' + row.id + '" style="margin-right: 10px;" class="btn  btn-primary btn-sm"><i class="fa fa-edit"></i>编辑</a>' +
-                        '<a onclick="delOne(' + row.id + ')" style="margin-right: 10px;" class="btn  btn-danger btn-sm"><i class="fa fa-trash"></i>删除</a>';
+                    return '<a onclick="showDetail( \'' + row.id + '\' )" style="margin-right: 10px;" class="btn  btn-default btn-sm"><i class="fa fa-search"></i> 查看</a>' +
+                        '<a href="/user/form?id=\'' + row.id + '\'" style="margin-right: 10px;" class="btn  btn-primary btn-sm"><i class="fa fa-edit"></i>编辑</a>' +
+                        '<a onclick="App.deleteSingle(\'' + '/user/delete' + '\',\'' + row.id + '\')" style="margin-right: 10px;" class="btn  btn-danger btn-sm"><i class="fa fa-trash"></i>删除</a>';
                 }
             }
         ];
         var url = "/user/page";
         return App.initDataTables(url, '#dataTable', columns);
     }
-
-    $(function () {
-        $(".modal-footer .btn-primary").click(
-            function () {
-                del(idArray);
-            }
-        );
-        dataTable = drawTable();
-
-    });
 </script>
 
 </body>

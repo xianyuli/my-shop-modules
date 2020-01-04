@@ -2,7 +2,7 @@
 <%@ attribute name="title" description="模态框标题"  required="false" type="java.lang.String" %>
 <%@ attribute name="message" description="模态框消息"  required="true" type="java.lang.String" %>
 
-<div class="modal fade" id="modal-msg">
+<div class="modal fade" id="modal-msg" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -15,7 +15,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">确定</button>
+                <button id="btnModalOk" type="button" class="btn btn-primary">确定</button>
             </div>
         </div>
         <!-- /.modal-content -->

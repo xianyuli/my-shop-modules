@@ -26,7 +26,7 @@ public class BaseResult implements Serializable {
     private Object data;
 
     public static BaseResult success(){
-        return createResult(ConstantUtils.STATUS_SUCCESS,"成功");
+        return createResult(ConstantUtils.STATUS_SUCCESS,"操作成功");
     }
 
     public static BaseResult success(String msg){
@@ -34,7 +34,7 @@ public class BaseResult implements Serializable {
     }
 
     public static BaseResult fail(){
-        return createResult(ConstantUtils.STATUS_FAIL, "失败");
+        return createResult(ConstantUtils.STATUS_FAIL, "操作失败");
     }
 
     public static BaseResult fail(String msg){

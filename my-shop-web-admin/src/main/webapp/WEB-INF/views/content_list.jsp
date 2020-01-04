@@ -102,7 +102,7 @@
                             <table id="dataTable" class="table table-hover">
                                 <thead>
                                 <tr>
-                                    <th><input type="checkbox" class="minimal checkmaster" value=""/></th>
+                                    <th><input type="checkbox" class="minimal check_master" value=""/></th>
                                     <th>ID</th>
                                     <th>标题</th>
                                     <th>子标题</th>
@@ -138,61 +138,10 @@
 <modal:modal-msg message=""/>
 <modal:detail/>
 <script>
-    //多选的数据ID数组
-    var idArray;
+    $(function () {
+        dataTable = drawTable();
+    });
     var dataTable;
-
-    function getCheckedBox() {
-        idArray = [];
-        var checkboxs = App.getCheckChilds();
-        checkboxs.each(function () {
-            if ($(this).val() && $(this).is(":checked")) {
-                idArray.push($(this).val());
-            }
-        });
-    }
-
-    function deleteMulti(ids) {
-        if (ids) {
-            idArray = ids;
-        } else {
-            getCheckedBox();
-        }
-        var arrNum = idArray.length;
-        if (idArray && idArray.length > 0) {
-            $("#modal-msg").modal("show");
-            $("#modalMessage").text("您确定要删除所选的" + arrNum + "条数据吗？");
-        } else {
-            $("#modal-msg").modal("show");
-            $("#modalMessage").text("您还没选择任何数据项，请至少选择一项！");
-        }
-    }
-
-    function delOne(id) {
-        deleteMulti([id.toString()]);
-    }
-
-    function del(ids) {
-        $("#modal-msg").modal("hide");
-        if (ids) {
-            $.ajax({
-                type: 'POST',
-                url: "/content/delete",
-                data: {"ids": ids},
-                aysnc: false,
-                success: function (data) {
-                    console.log(data);
-                    if (data.status && data.status === 200) {
-                        window.location.reload();
-                    } else {
-                        $(".alertMessage").text(data.msg);
-                        $(".alert").removeClass("alert-success").addClass("alert-danger").show();
-                    }
-                }
-            });
-        }
-    }
-
     function showDetail(id) {
         $.ajax({
             url: "/content/detail?id=" + id,
@@ -248,25 +197,15 @@
             {"data": "updated"},
             {
                 "data": function (row, type, val, meta) {
-                    return '<a onclick="showDetail(' + row.id + ')" style="margin-right: 10px;" class="btn  btn-default btn-sm"><i class="fa fa-search"></i> 查看</a>' +
+                    return '<a onclick="showDetail( \'' + row.id + '\' )" style="margin-right: 10px;" class="btn  btn-default btn-sm"><i class="fa fa-search"></i> 查看</a>' +
                         '<a href="/content/form?id=' + row.id + '" style="margin-right: 10px;" class="btn  btn-primary btn-sm"><i class="fa fa-edit"></i>编辑</a>' +
-                        '<a onclick="delOne(' + row.id + ')" style="margin-right: 10px;" class="btn  btn-danger btn-sm"><i class="fa fa-trash"></i>删除</a>';
+                        '<a onclick="App.deleteSingle(\'' + '/user/delete' + '\',\'' + row.id + '\')" style="margin-right: 10px;" class="btn  btn-danger btn-sm"><i class="fa fa-trash"></i>删除</a>';
                 }
             }
         ];
         var url = "/content/page";
         return App.initDataTables(url, '#dataTable', columns);
     }
-
-    $(function () {
-        $(".modal-footer .btn-primary").click(
-            function () {
-                del(idArray);
-            }
-        );
-        dataTable = drawTable();
-
-    });
 </script>
 
 </body>

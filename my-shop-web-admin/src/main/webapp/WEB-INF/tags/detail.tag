@@ -2,7 +2,7 @@
 <%@ attribute name="title" description="模态框标题"  required="false" type="java.lang.String" %>
 <%@ attribute name="content" description="模态框内容"  required="false" type="java.lang.String" %>
 
-<div class="modal fade" id="modal-detail">
+<div class="modal fade" id="modal-detail" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

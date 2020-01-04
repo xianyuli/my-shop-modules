@@ -1,6 +1,10 @@
 var App = function () {
-    var checkmaster;
-    var checkboxs;
+    //全选框集合
+    var check_masters;
+    //单选框集合
+    var check_box;
+    //多选的数据ID数组
+    var _idArray;
     /**
      * 私有方法 初始化iCheck
      */
@@ -9,24 +13,123 @@ var App = function () {
             checkboxClass: 'icheckbox_minimal-blue',
             radioClass: 'iradio_minimal-blue'
         });
-        checkmaster = $('input[type="checkbox"].checkmaster');
-        checkboxs = $('input[type="checkbox"].minimal');
+        check_masters = $('input[type="checkbox"].check_master');
+        check_box = $('input[type="checkbox"].minimal');
 
     };
+
+
     /**
      * 全选 反选事件
      */
     var handlerAllCheck = function () {
-        checkmaster.on("ifChanged", function (e) {
-            console.log(e.target.checked);
+        check_masters.on("ifChanged", function (e) {
             if (e.target.checked) {
-                checkboxs.iCheck("check")
+                check_box.iCheck("check")
             } else {
-                checkboxs.iCheck("uncheck")
+                check_box.iCheck("uncheck")
             }
 
         });
     };
+
+    /**
+     * 删除数据
+     * @param url
+     * @param ids
+     */
+    var handlerDeleteData = function (url) {
+        var btnModalOk = $("#btnModalOk");
+        // 请求成功后，无论是成功或是失败都需要弹出模态框进行提示，所以这里需要先解绑原来的 click 事件
+        btnModalOk.unbind("click");
+        $("#modal-msg").modal("hide");
+        if (!_idArray && _idArray.length > 0) {
+            return;
+        }
+        setTimeout(function () {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {"ids": _idArray},
+                success: function (data) {
+                    if (data.status && data.status === 200) {
+                        // 刷新页面
+                        btnModalOk.bind("click", function () {
+                            window.location.reload();
+                        });
+                    } else {
+                        // 确定按钮的事件改为隐藏模态框
+                        btnModalOk.bind("click", function () {
+                            $("#modal-msg").modal("hide");
+                        });
+                    }
+                    // 因为无论如何都需要提示信息，所以这里的模态框是必须调用的
+                    $("#modalMessage").html(data.msg);
+                    $("#modal-msg").modal("show");
+                }
+            });
+        },500);
+    };
+
+    /**
+     * 删除单笔记录
+     * @param url 删除链接
+     * @param id 需要删除数据的 ID
+     * @param msg 弹出消息
+     */
+    var handlerDeleteSingle = function (url, id, msg) {
+        // 可选参数
+        if (!msg) msg = null;
+
+        // 将 ID 放入数组中，以便和批量删除通用
+        _idArray = [];
+        _idArray.push(id);
+
+        $("#modalMessage").html(msg == null ? "您确定删除数据项吗？" : msg);
+        $("#modal-msg").modal("show");
+        // 如果用户选择了数据项则调用删除方法
+        $("#btnModalOk").bind("click", function () {
+            handlerDeleteData(url)
+        });
+    };
+
+    /**
+     *  根据ids删除数据
+     * @param url
+     * @param ids
+     */
+    var handlerDeleteMulti = function (url, ids) {
+        _idArray = [];
+        if (ids) {
+            _idArray = [ids];
+        } else {
+            // 将选中元素的 ID 放入数组中
+            check_box.each(function () {
+                var _id = $(this).val();
+                if (_id && $(this).is(":checked")) {
+                    _idArray.push(_id);
+                }
+            });
+        }
+
+        // 判断用户是否选择了数据项
+        if (_idArray && _idArray.length > 0) {
+            $("#modalMessage").text("您确定要删除所选的" + _idArray.length + "条数据吗？");
+        } else {
+            $("#modalMessage").text("您还没选择任何数据项，请至少选择一项！");
+        }
+
+        // 点击删除按钮时弹出模态框
+        $("#modal-msg").modal("show");
+
+        // 如果用户选择了数据项则调用删除方法
+        // 如果用户选择了数据项则调用删除方法
+        $("#btnModalOk").bind("click", function () {
+            handlerDeleteData(url)
+        });
+    };
+
+
     /**
      * 初始化zTree
      * @param url
@@ -58,7 +161,7 @@ var App = function () {
         }
 
         $.fn.zTree.init($("#treeData"), _setting);
-        $(".modal-footer .btn-primary").click(
+        $("#btnModalOk").click(
             function () {
                 return selectNode();
             }
@@ -138,7 +241,7 @@ var App = function () {
     };
     var handlerInitDropzone = function (opts) {
         $.extend(defaultDropzoneOpts, opts);
-        return  $(defaultDropzoneOpts.id).dropzone(defaultDropzoneOpts);
+        return $(defaultDropzoneOpts.id).dropzone(defaultDropzoneOpts);
     };
 
     return {
@@ -147,7 +250,13 @@ var App = function () {
             handlerAllCheck();
         },
         getCheckChilds: function () {
-            return checkboxs;
+            return check_box;
+        },
+        deleteSingle: function (url, id, msg) {
+            handlerDeleteSingle(url, id, msg);
+        },
+        deleteMulti: function (url) {
+            handlerDeleteMulti(url);
         },
         initDataTables: function (url, tableName, columns) {
             return handlerInitDataTables(url, tableName, columns);

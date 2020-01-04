@@ -51,8 +51,6 @@
                                 <div class="col">
                                     <a href="/category/form" type="button" class="btn btn-sm btn-default"
                                        style="margin-left: 10px"><i class="fa fa-plus"></i>新增</a>
-                                    <a type="button" class="btn btn-sm btn-default" onclick="deleteMulti()"
-                                       style="margin-left: 10px"><i class="fa fa-trash-o"></i>删除</a>
                                     <a href="" type="button" class="btn btn-sm btn-default" style="margin-left: 10px"><i
                                             class="fa fa-upload"></i>导入</a>
                                     <a href="" type="button" class="btn btn-sm btn-default" style="margin-left: 10px"><i
@@ -79,12 +77,12 @@
                                         <td>${tbContentCategory.name}</td>
                                         <td>${tbContentCategory.sortOrder}</td>
                                         <td>
-                                            <a href="/category/form?id=${tbContentCategory.id}" type="button"
+                                            <a href="${pageContext.request.contextPath}/category/form?id=${tbContentCategory.id}" type="button"
                                                class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;
-                                            <button type="button" class="btn btn-sm btn-danger" onclick="del(${tbContentCategory.id})">
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="App.deleteSingle('/category/delete','${tbContentCategory.id}')">
                                                 <i class="fa fa-trash-o"></i> 删除
                                             </button>&nbsp;&nbsp;&nbsp;
-                                            <a href="/category/form?parent.id=${tbContentCategory.id}&parent.name=${tbContentCategory.name}"
+                                            <a href="${pageContext.request.contextPath}/category/form?parent.id=${tbContentCategory.id}&parent.name=${tbContentCategory.name}"
                                                type="button" class="btn btn-sm btn-default"><i class="fa fa-plus"></i>
                                                 添加下级菜单</a>
                                         </td>
@@ -119,41 +117,6 @@
         });
 
     });
-
-    function del(id) {
-        $(".modal-footer .btn-primary").click(
-            function () {
-                delOne(id);
-            }
-        );
-        if (id) {
-            $("#modal-msg").modal("show");
-            $("#modalMessage").text("警告：该删除操作会将包括选中类目在内的全部子类目及属于类目的内容一并删除，请谨慎操作！您还确定继续吗？");
-        } else {
-            $("#modal-msg").modal("show");
-            $("#modalMessage").text("您还没选择任何数据项，请至少选择一项！");
-        }
-    }
-
-    function delOne(ids) {
-        if (ids) {
-            $.ajax({
-                type: 'POST',
-                url: "/category/delete",
-                data: {"ids": ids},
-                aysnc: false,
-                success: function (data) {
-                    console.log(data);
-                    if (data.status && data.status === 200) {
-                        window.location.reload();
-                    } else {
-                        $(".alertMessage").text(data.msg);
-                        $(".alert").removeClass("alert-success").addClass("alert-danger").show();
-                    }
-                }
-            });
-        }
-    }
 </script>
 
 </body>
