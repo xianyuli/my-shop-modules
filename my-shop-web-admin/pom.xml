@@ -14,7 +14,7 @@
     <packaging>war</packaging>
 
     <name>my-shop-web-admin</name>
-    <description></description>
+    <description>后台管理模块</description>
 
 
     <dependencies>

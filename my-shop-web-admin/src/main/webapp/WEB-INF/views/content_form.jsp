@@ -158,6 +158,8 @@
     //关闭dropzone自动初始化功能
     Dropzone.autoDiscover = false;
     //初始化dropzone方法
+    initDropzone("#dropz", "#pic");
+    initDropzone("#dropz2", "#pic2");
     function initDropzone(divId, inputId) {
         var myDropzone = App.initDropzone({
             id: divId,
@@ -181,8 +183,6 @@
         });
     }
 
-    initDropzone("#dropz", "#pic");
-    initDropzone("#dropz2", "#pic2");
 
 </script>
 </body>

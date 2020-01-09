@@ -88,7 +88,7 @@
                             <div class="row box-body">
                                 <div class="col">
                                     <a href="/content/form" type="button" class="btn btn-sm btn-default" style="margin-left: 10px"><i class="fa fa-plus"></i>新增</a>
-                                    <a type="button" class="btn btn-sm btn-default" onclick="deleteMulti()" style="margin-left: 10px"><i class="fa fa-trash-o"></i>删除</a>
+                                    <a type="button" class="btn btn-sm btn-default" onclick="App.deleteMulti('/content/delete')" style="margin-left: 10px"><i class="fa fa-trash-o"></i>删除</a>
                                     <a href="" type="button" class="btn btn-sm btn-default" style="margin-left: 10px"><i class="fa fa-upload"></i>导入</a>
                                     <a href="" type="button" class="btn btn-sm btn-default" style="margin-left: 10px"><i class="fa fa-download"></i>导出</a>
                                     <a type="button" class="btn btn-sm btn-primary"
@@ -199,7 +199,7 @@
                 "data": function (row, type, val, meta) {
                     return '<a onclick="showDetail( \'' + row.id + '\' )" style="margin-right: 10px;" class="btn  btn-default btn-sm"><i class="fa fa-search"></i> 查看</a>' +
                         '<a href="/content/form?id=' + row.id + '" style="margin-right: 10px;" class="btn  btn-primary btn-sm"><i class="fa fa-edit"></i>编辑</a>' +
-                        '<a onclick="App.deleteSingle(\'' + '/user/delete' + '\',\'' + row.id + '\')" style="margin-right: 10px;" class="btn  btn-danger btn-sm"><i class="fa fa-trash"></i>删除</a>';
+                        '<a onclick="App.deleteSingle(\'' + '/content/delete' + '\',\'' + row.id + '\')" style="margin-right: 10px;" class="btn  btn-danger btn-sm"><i class="fa fa-trash"></i>删除</a>';
                 }
             }
         ];

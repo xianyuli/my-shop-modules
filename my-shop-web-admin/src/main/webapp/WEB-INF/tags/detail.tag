@@ -15,7 +15,7 @@
             </div>
             <br>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                <button id="btnModalOk" type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
             </div>
         </div>
         <!-- /.modal-content -->

@@ -33,7 +33,7 @@ public class UploadController {
                     + ":" + request.getServerPort() + filename;
             nameList.add(filepath);
             //dropzone上传文件限制为一个
-            map.put("filename", filename);
+            map.put("filename", filepath);
         }
         map.put("errno", 0);
         //wangedit上传一个或者多个文件，全域名
