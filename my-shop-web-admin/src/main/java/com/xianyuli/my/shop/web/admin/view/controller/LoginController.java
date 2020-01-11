@@ -15,18 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * @ProjectName: myShop
- * @Package: com.xianyuli.myShop.view.controller
- * @ClassName: LoginController
- * @Description: 登录入口
- * @Author: LW
- * @CreateDate: 2018/9/25 0025 22:25
- * @UpdateUser: LW
- * @UpdateDate: 2018/9/25 0025 22:25
- * @UpdateRemark: 更新说明
- * @Version: 1.0
- */
 @Controller
 public class LoginController {
 

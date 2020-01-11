@@ -2,6 +2,7 @@ package com.xianyuli.my.shop.web.admin.view.controller;
 
 import com.xianyuli.my.shop.commoms.dto.BaseResult;
 import com.xianyuli.my.shop.commoms.dto.PageInfo;
+import com.xianyuli.my.shop.commoms.utils.ConstantUtils;
 import com.xianyuli.my.shop.domain.TbContentCategory;
 import com.xianyuli.my.shop.web.admin.abstracts.AbstractBaseController;
 import com.xianyuli.my.shop.web.admin.service.TbContentCategoryService;
@@ -13,11 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-/**
- * @ClassName: ContentCategoryController
- * @Description: java类作用描述
- * @Author: LW
- */
 @Controller
 @RequestMapping(value = "category")
 public class ContentCategoryController extends AbstractBaseController<TbContentCategory, TbContentCategoryService> {
@@ -86,7 +82,7 @@ public class ContentCategoryController extends AbstractBaseController<TbContentC
     @RequestMapping(value = "save", method = RequestMethod.POST)
     public String save(TbContentCategory tbContentCategory, Model model, RedirectAttributes redirectAttributes) {
         BaseResult baseResult = service.save(tbContentCategory);
-        if (baseResult.getStatus() == 200) {
+        if (baseResult.getStatus() == ConstantUtils.STATUS_SUCCESS) {
             redirectAttributes.addFlashAttribute("baseResult", baseResult);
             return "redirect:/category/list";
         } else {

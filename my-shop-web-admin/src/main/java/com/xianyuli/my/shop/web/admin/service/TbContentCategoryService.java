@@ -5,9 +5,6 @@ import com.xianyuli.my.shop.domain.TbContentCategory;
 
 import java.util.List;
 
-/**
- * @author LW
- */
 public interface TbContentCategoryService extends BaseService<TbContentCategory> {
 
     List<TbContentCategory> selectAll();

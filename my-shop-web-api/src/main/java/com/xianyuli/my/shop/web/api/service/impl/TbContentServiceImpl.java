@@ -8,11 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * @ClassName: TbContentServiceImpl
- * @Description: java类作用描述
- * @Author: LW
- */
 @Service
 public class TbContentServiceImpl implements TbContentService {
 

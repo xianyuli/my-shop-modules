@@ -11,11 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-/**
- * @ClassName: TbContentServiceImpl
- * @Description: java类作用描述
- * @Author: LW
- */
 @Service
 public class TbContentServiceImpl extends AbstractBaseServiceImpl<TbContent,TbContentDao> implements TbContentService {
 

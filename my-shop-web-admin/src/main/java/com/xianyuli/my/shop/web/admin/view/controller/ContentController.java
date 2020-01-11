@@ -2,6 +2,7 @@ package com.xianyuli.my.shop.web.admin.view.controller;
 
 import com.xianyuli.my.shop.commoms.dto.BaseResult;
 import com.xianyuli.my.shop.commoms.dto.PageInfo;
+import com.xianyuli.my.shop.commoms.utils.ConstantUtils;
 import com.xianyuli.my.shop.domain.TbContent;
 import com.xianyuli.my.shop.web.admin.abstracts.AbstractBaseController;
 import com.xianyuli.my.shop.web.admin.service.TbContentService;
@@ -13,11 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * @ClassName: ContentController
- * @Description: java类作用描述
- * @Author: LW
- */
 @Controller
 @RequestMapping(value = "content")
 public class ContentController extends AbstractBaseController<TbContent, TbContentService> {
@@ -77,7 +73,7 @@ public class ContentController extends AbstractBaseController<TbContent, TbConte
     @RequestMapping(value = "save", method = RequestMethod.POST)
     public String save(TbContent tbContent, Model model, RedirectAttributes redirectAttributes) {
         BaseResult baseResult = service.save(tbContent);
-        if (baseResult.getStatus() == 200) {
+        if (baseResult.getStatus() == ConstantUtils.STATUS_SUCCESS) {
             redirectAttributes.addFlashAttribute("baseResult", baseResult);
             return "redirect:/content/list";
         } else {

@@ -3,11 +3,13 @@ package com.xianyuli.my.shop.commoms.persistence;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-
 /**
- * @ClassName: BaseDao
- * @Description: 数据访问层的基类
- * @Author: LW
+ * 功能描述: 数据访问层的基类<br>
+ * 〈〉
+ *
+ * @return:
+ * @Author:LW
+ * @Date: 2020/01/12 1:23
  */
 public interface BaseDao<T extends BaseEntity> {
     /**

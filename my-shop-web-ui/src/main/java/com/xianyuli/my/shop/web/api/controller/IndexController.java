@@ -10,11 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-/**
- * @ClassName: IndexController
- * @Description: 首页
- * @Author: LW
- */
 @Controller
 public class IndexController {
 

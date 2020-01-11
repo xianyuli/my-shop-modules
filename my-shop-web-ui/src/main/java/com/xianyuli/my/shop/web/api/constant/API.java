@@ -1,10 +1,5 @@
 package com.xianyuli.my.shop.web.api.constant;
 
-/**
- * @ClassName: API
- * @Description: java类作用描述
- * @Author: LW
- */
 public class API {
     public static class Constant{
         //轮播图的父ID

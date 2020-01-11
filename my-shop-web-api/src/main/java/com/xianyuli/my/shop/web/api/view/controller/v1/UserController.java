@@ -12,18 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * @ProjectName: my-shop-modules
- * @Package: com.xianyuli.my.shop.web.admin.view.controller
- * @ClassName: UserController
- * @Description: java类作用描述
- * @Author: LW
- * @CreateDate: 2018/10/28 0028 23:28
- * @UpdateUser: LW
- * @UpdateDate: 2018/10/28 0028 23:28
- * @UpdateRemark: 更新说明
- * @Version: 1.0
- */
 @RestController
 @RequestMapping(value = "users/v1")
 public class UserController {

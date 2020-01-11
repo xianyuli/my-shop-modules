@@ -7,22 +7,18 @@ import lombok.Setter;
 import java.io.Serializable;
 
 /**
- * @ProjectName: my-shop-modules
- * @Package: com.xianyuli.my.shop.commoms.dto
- * @ClassName: BaseResult
- * @Description:
- * @Author: LW
- * @CreateDate: 2018/11/11 0011 17:00
- * @UpdateUser: LW
- * @UpdateDate: 2018/11/11 0011 17:00
- * @UpdateRemark: 更新说明
- * @Version: 1.0
+ * 功能描述: 接口统一返回对象<br>
+ * 〈〉
+ *
+ * @return:
+ * @Author:LW
+ * @Date: 2020/01/12 1:22
  */
 @Setter
 @Getter
 public class BaseResult implements Serializable {
-    public static final int STATUS_SUCCESS = 200;
-    public static final int STATUS_FAIL = 500;
+    public static final int STATUS_SUCCESS = ConstantUtils.STATUS_SUCCESS;
+    public static final int STATUS_FAIL = ConstantUtils.STATUS_FAIL;
 
     private int status;
     private  String msg;

@@ -10,7 +10,14 @@ import org.hibernate.validator.constraints.Length;
 import com.xianyuli.my.shop.commoms.utils.RegexpUtils;
 
 import javax.validation.constraints.Pattern;
-
+/**
+ * 功能描述: 用户对象<br>
+ * 〈〉
+ *
+ * @return:
+ * @Author:LW
+ * @Date: 2020/01/12 1:28
+ */
 @JsonIgnoreProperties(value = {"password"})
 @EqualsAndHashCode(callSuper = true)
 @Data

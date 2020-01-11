@@ -15,11 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-/**
- * @ClassName: KaptchaController
- * @Description: java类作用描述
- * @Author: LW
- */
 @Controller
 public class KaptchaController {
     @Autowired

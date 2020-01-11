@@ -9,9 +9,12 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
 
 /**
- * @ClassName: TbContentCategory
- * @Description: java类作用描述
- * @Author: LW
+ * 功能描述: 分类对象<br>
+ * 〈〉
+ *
+ * @return:
+ * @Author:LW
+ * @Date: 2020/01/12 1:28
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

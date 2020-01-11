@@ -12,11 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * @ClassName: LoginController
- * @Description: 登录
- * @Author: LW
- */
 @Controller
 public class LoginController {
 

@@ -13,9 +13,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @ClassName: AbstractBaseController
- * @Description: java类作用描述
- * @Author: LW
+ * 功能描述: 控制器模板<br>
+ * 〈〉
+ *
+ * @return:
+ * @Author:LW
+ * @Date: 2020/01/12 1:29
  */
 public abstract class AbstractBaseController<T extends BaseEntity, S extends BaseService<T>> {
 

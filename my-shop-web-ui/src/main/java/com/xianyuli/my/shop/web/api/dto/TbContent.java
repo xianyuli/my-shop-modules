@@ -4,11 +4,6 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * @ClassName: TbContent
- * @Description: java类作用描述
- * @Author: LW
- */
 @Data
 public class TbContent implements Serializable {
     private String title;

@@ -10,9 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 /**
- * @ClassName: AbstractBaseServiceImpl
- * @Description: java类作用描述
- * @Author: LW
+ * 功能描述: 实现类模板<br>
+ * 〈〉
+ *
+ * @return:
+ * @Author:LW
+ * @Date: 2020/01/12 1:33
  */
 public abstract class AbstractBaseServiceImpl<T extends BaseEntity, D extends BaseDao<T>> implements BaseService<T> {
 

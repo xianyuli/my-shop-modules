@@ -7,11 +7,6 @@ import com.xianyuli.my.shop.web.api.dto.TbContent;
 
 import java.util.List;
 
-/**
- * @ClassName: ContentApi
- * @Description: java类作用描述
- * @Author: LW
- */
 public class ContentApi {
 
     public static List<TbContent> ppt(long categoryId) {

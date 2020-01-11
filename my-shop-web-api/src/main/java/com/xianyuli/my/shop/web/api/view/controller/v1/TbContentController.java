@@ -11,11 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @ClassName: TbContentController
- * @Description: java类作用描述
- * @Author: LW
- */
 @RestController
 @RequestMapping("/content/v1")
 public class TbContentController {

@@ -15,9 +15,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * @author LW
- */
 @Service
 public class TbContentCategoryServiceImpl extends AbstractBaseServiceImpl<TbContentCategory, TbContentCategoryDao> implements TbContentCategoryService {
 

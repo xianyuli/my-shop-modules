@@ -2,6 +2,7 @@ package com.xianyuli.my.shop.web.admin.view.controller;
 
 import com.xianyuli.my.shop.commoms.dto.BaseResult;
 import com.xianyuli.my.shop.commoms.dto.PageInfo;
+import com.xianyuli.my.shop.commoms.utils.ConstantUtils;
 import com.xianyuli.my.shop.domain.TbContent;
 import com.xianyuli.my.shop.web.admin.abstracts.AbstractBaseController;
 import com.xianyuli.my.shop.domain.TbUser;
@@ -13,18 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * @ProjectName: my-shop-modules
- * @Package: com.xianyuli.my.shop.web.admin.view.controller
- * @ClassName: UserController
- * @Description: java类作用描述
- * @Author: LW
- * @CreateDate: 2018/10/28 0028 23:28
- * @UpdateUser: LW
- * @UpdateDate: 2018/10/28 0028 23:28
- * @UpdateRemark: 更新说明
- * @Version: 1.0
- */
 @Controller
 
 @RequestMapping(value = "user")
@@ -83,7 +72,7 @@ public class UserController extends AbstractBaseController<TbUser, TbUserService
     @RequestMapping(value = "save", method = RequestMethod.POST)
     public String save(TbUser tbUser, Model model, RedirectAttributes redirectAttributes) {
         BaseResult baseResult = service.save(tbUser);
-        if (baseResult.getStatus() == 200) {
+        if (baseResult.getStatus() == ConstantUtils.STATUS_SUCCESS) {
             redirectAttributes.addFlashAttribute("baseResult", baseResult);
             return "redirect:/user/list";
         } else {
@@ -93,14 +82,6 @@ public class UserController extends AbstractBaseController<TbUser, TbUserService
         }
     }
 
-    /**
-     * 功能描述: 删除用户<br>
-     * 〈〉
-     *
-     * @return:
-     * @Author:LW
-     * @Date: 2019/6/23 0023 15:54
-     */
     @Override
     @ResponseBody
     @RequestMapping(value = "delete", method = RequestMethod.POST)

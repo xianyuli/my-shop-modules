@@ -11,11 +11,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-/**
- * @ClassName: UploadController
- * @Description: java类作用描述
- * @Author: LW
- */
 @Controller
 public class UploadController {
 

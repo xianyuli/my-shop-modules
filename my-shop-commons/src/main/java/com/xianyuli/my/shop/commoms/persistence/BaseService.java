@@ -4,9 +4,12 @@ import com.xianyuli.my.shop.commoms.dto.BaseResult;
 import com.xianyuli.my.shop.commoms.dto.PageInfo;
 
 /**
- * @ClassName: BaseService
- * @Description: java类作用描述
- * @Author: LW
+ * 功能描述: 业务interface基类<br>
+ * 〈〉
+ *
+ * @return:
+ * @Author:LW
+ * @Date: 2020/01/12 1:24
  */
 public interface BaseService<T extends BaseEntity> {
     PageInfo<T> page(int start, int length, int draw, T t);

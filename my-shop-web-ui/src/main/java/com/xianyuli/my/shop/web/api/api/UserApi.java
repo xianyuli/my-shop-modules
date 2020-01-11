@@ -9,11 +9,6 @@ import org.apache.http.message.BasicNameValuePair;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @ClassName: UserApi
- * @Description: java类作用描述
- * @Author: LW
- */
 public class UserApi {
 
     public static TbUser login(TbUser user) throws Exception {

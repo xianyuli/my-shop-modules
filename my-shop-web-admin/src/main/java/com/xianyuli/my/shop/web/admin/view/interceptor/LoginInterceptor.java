@@ -9,18 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * @ProjectName: myShop
- * @Package: com.xianyuli.myShop.view.interceptor
- * @ClassName: LoginInterceptor
- * @Description: 登录拦截器
- * @Author: LW
- * @CreateDate: 2018/9/26 0026 22:57
- * @UpdateUser: LW
- * @UpdateDate: 2018/9/26 0026 22:57
- * @UpdateRemark: 更新说明
- * @Version: 1.0
- */
 public class LoginInterceptor implements HandlerInterceptor {
     /**
      * 未登录拦截，跳转登录页

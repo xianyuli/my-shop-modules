@@ -8,11 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * @ClassName: LoginInterCeptor
- * @Description: java类作用描述
- * @Author: LW
- */
 public class LoginInterceptor implements HandlerInterceptor {
     /**
      * 未登录拦截，跳转登录页
