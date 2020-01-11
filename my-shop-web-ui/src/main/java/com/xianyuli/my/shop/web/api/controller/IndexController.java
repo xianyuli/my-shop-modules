@@ -1,6 +1,7 @@
-package com.xianyuli.my.shop.web.api.view.controller;
+package com.xianyuli.my.shop.web.api.controller;
 
 import com.xianyuli.my.shop.web.api.api.ContentApi;
+import com.xianyuli.my.shop.web.api.constant.API;
 import com.xianyuli.my.shop.web.api.dto.TbContent;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +20,7 @@ public class IndexController {
 
     @RequestMapping(value = {"", "index"}, method = RequestMethod.GET)
     public String index(Model model) {
-        List<TbContent> ppts = ContentApi.ppt(111);
+        List<TbContent> ppts = ContentApi.ppt(API.Constant.PPT_PID);
         model.addAttribute("ppts", ppts);
         return "index";
     }

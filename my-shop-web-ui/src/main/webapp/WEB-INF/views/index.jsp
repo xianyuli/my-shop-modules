@@ -69,7 +69,14 @@
             </li>
         </ul>
         <ul class="header-right">
-            <li class="denglu">Hi~<a class="red" href="/login">请登录!</a> <a href="/register">[免费注册]</a></li>
+            <c:choose>
+                <c:when test="${tbuser!=null}">
+                    <li class="denglu">Hi~ ${tbuser.username} 欢迎回来 <a href="/logout">[注销]</a></li>
+                </c:when>
+                <c:otherwise>
+                    <li class="denglu">Hi~<a class="red" href="/login">请登录!</a> <a href="/register">[免费注册]</a></li>
+                </c:otherwise>
+            </c:choose>
             <li class="shu"></li>
             <li class="denglu"><a class="ing_ps" href="#">我的收藏</a></li>
             <li class="shu"></li>

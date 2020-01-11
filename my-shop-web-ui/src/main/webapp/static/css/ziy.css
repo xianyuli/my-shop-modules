@@ -3312,10 +3312,9 @@ font:normal 14px/32px "Microsoft YaHei";
     color: #fff;
     font-family: "Microsoft YaHei";
     font-size: 16px;
-    cursor: pointer; 
-    border-bottom-right-radius: 
+    cursor: pointer;
     -moz-border-bottom-right-radius:3px;
-    -webkit-border-bottom-right-radius:3px; 
+    -webkit-border-bottom-right-radius:3px;
     border-top-right-radius: 3px;
     -border-top-right-radius:3px;
     -border-top-right-radius:3px; 
@@ -4642,7 +4641,7 @@ a.btn-again {
     overflow: hidden;
     position: absolute;
     top: 10px;
-    left: 425px;
+    left: 420px;
     _left: 232px;
 }
 

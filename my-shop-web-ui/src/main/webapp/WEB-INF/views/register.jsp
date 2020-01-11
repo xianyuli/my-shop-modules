@@ -39,9 +39,9 @@
                             <div class="msg-cont">4-20个字符，支持汉字、字母、数字及“-”、“_”组合</div>
                         </div>
                     </div>
-                    <div class="msg-weak err-tips"  style="display: inline-block;"><div>请输入用户名</div></div>
+                    <div class="msg-weak err-tips"   style="display: none;"><div>请输入用户名</div></div>
                 </div>
-                <span class="suc-icon"></span>
+                <span style="display: none" class="suc-icon"></span>
             </div>
             <div class="reg-items" >
               	<span class="reg-label">

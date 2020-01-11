@@ -7,8 +7,12 @@ package com.xianyuli.my.shop.web.api.constant;
  */
 public class API {
     public static class Constant{
-    }
+        //轮播图的父ID
+        public static final int PPT_PID = 111;
+        //session中user的KEY
+        public static final String SESSION_USER = "tbuser";
 
+    }
 
     public static class Url{
         /**

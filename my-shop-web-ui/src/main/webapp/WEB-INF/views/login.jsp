@@ -41,14 +41,24 @@
                 </div>
             </div>
             <div class="kengl_kuang">
+                <c:if test="${baseresult!=null}">
+                    <div class="red">${baseresult.msg}</div>
+                </c:if>
                 <form action="/login" method="post">
                     <div class="txt_kuang">
-                        <input id="username" name="username" type="text" class="itxt"  placeholder="邮箱/用户名/已验证手机">
-                        <input id="password" name="password"  type="password" class="itxt"  placeholder="密码">
+                        <input id="username" name="username" type="text" class="itxt" placeholder="邮箱/用户名/已验证手机">
+                        <input id="password" name="password" type="password" class="itxt" placeholder="密码">
+
+                        <input id="verification" name="verification" type="text" class="itxt" placeholder="验证码">
+                        <div><img id="captcha" name="captcha" style="float: left;padding-left: 34px" class="" src="/verification">
+                            <a id="refreshcaptcha" onclick="refreshCaptcha()" style="text-decoration: underline;float: left;
+                            padding: 23px 14px 0px 7px;cursor: pointer;">看不清，换一张?</a>
+                        </div>
+
                     </div>
                     <div class="remember">
                         <div class="fl">
-                            <input type="checkbox" >
+                            <input type="checkbox">
                             <label for="autoLoginFlag">自动登录</label>
                         </div>
                         <div class="fr">
@@ -56,11 +66,11 @@
                         </div>
                     </div>
                     <input type="submit" tabindex="5" value="登 录" class="btnnuw">
-                </div>
-                <div class="corp_login">
-                    <div class="mingb_shoq"><a href="#">名榜授权登录！</a></div>
-                    <div class="regist_link"><a href="/register" target="_blank"><b></b>立即注册</a></div>
-                </div>
+            </div>
+            <div class="corp_login">
+                <div class="mingb_shoq"><a href="#">名榜授权登录！</a></div>
+                <div class="regist_link"><a href="/register" target="_blank"><b></b>立即注册</a></div>
+            </div>
             </form>
         </div>
     </div>
@@ -69,9 +79,19 @@
 
 <div class="jianj_dib">
     <div class="beia_hao">
-        <p>京ICP备：123456789号  </p>
+        <p>京ICP备：123456789号 </p>
         <p class="gonga_bei">京公网安备：123456789号</p>
     </div>
 </div>
+<script src="/static/js/jquery-1.11.3.min.js"></script>
+<script>
+    $(function () {
+        $("#refresh").bin
+
+    });
+    function refreshCaptcha() {
+        $("#captcha").hide().attr("src", "/verification?" + Math.random()).fadeToggle();
+    }
+</script>
 </body>
 </html>

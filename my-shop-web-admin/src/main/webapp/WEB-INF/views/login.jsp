@@ -79,9 +79,19 @@
         $('input').iCheck({
             checkboxClass: 'icheckbox_square-blue',
             radioClass: 'iradio_square-blue',
-            increaseArea: '20%' /* optional */
+            increaseArea: '20%'
         });
+        var rememberName = getCookie("rememberName").replace(/\"/g, "");
+        if (rememberName) {
+            $("#eamil").val(rememberName);
+            $("#isRemember").iCheck('check')
+        }
     });
+    function getCookie(name) {
+        var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+        if(arr != null) return unescape(arr[2]);
+        return false;
+    }
 </script>
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
