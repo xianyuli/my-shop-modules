@@ -23,7 +23,8 @@ public class LoginInterceptor implements HandlerInterceptor {
         TbUser tbUser = (TbUser) httpServletRequest.getSession().getAttribute(ConstantUtils.SESSION_USER);
         String servletPath = httpServletRequest.getServletPath();
         if (tbUser == null && !servletPath.endsWith("login")) {
-            httpServletResponse.sendRedirect("/login");
+            String contextPath = httpServletRequest.getContextPath();
+            httpServletResponse.sendRedirect(contextPath + "/login");
             return false;
         } else {
             return true;
@@ -44,7 +45,8 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (modelAndView != null && modelAndView.getViewName().endsWith("login")) {
             TbUser tbUser = (TbUser) httpServletRequest.getSession().getAttribute(ConstantUtils.SESSION_USER);
             if (tbUser != null) {
-                httpServletResponse.sendRedirect("/main");
+                String contextPath = httpServletRequest.getContextPath();
+                httpServletResponse.sendRedirect(contextPath + "/main");
             }
         }
     }

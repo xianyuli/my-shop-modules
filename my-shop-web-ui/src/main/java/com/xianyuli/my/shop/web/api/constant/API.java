@@ -13,7 +13,7 @@ public class API {
         /**
          * 主机地址
          */
-        public static final String HOST = "http://localhost:8081/api";
+        public static final String HOST = "http://192.168.154.129:8081";
         /**
          * 内容查询
          * /content/v1/{categoryid}
