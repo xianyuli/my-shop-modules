@@ -35,7 +35,7 @@
         <mybatis.version>3.2.8</mybatis.version>
         <junit.version>4.12</junit.version>
         <lombok.version>1.18.2</lombok.version>
-        <jackson.version>2.10.1</jackson.version>
+        <jackson.version>2.12.1</jackson.version>
         <hibernate-validator.version>5.3.4.Final</hibernate-validator.version>
 
     </properties>
